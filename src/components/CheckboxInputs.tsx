@@ -1,15 +1,16 @@
 // components/CheckboxGroup.tsx
+import { UserType } from "@/types/UserType";
 import React, { useState } from "react";
 
 interface CheckboxGroupProps {
-  options: string[];
-  onChange: (selectedOption: string | null) => void;
+  options: UserType[];
+  onChange: (selectedOption: UserType | null) => void;
 }
 
 const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ options, onChange }) => {
-  const [checkedValue, setCheckedValue] = useState<string | null>(null);
+  const [checkedValue, setCheckedValue] = useState<UserType | null>(null);
 
-  const handleCheckboxChange = (value: string) => {
+  const handleCheckboxChange = (value: UserType) => {
     if (value === checkedValue) {
       // Uncheck the checkbox if it's already checked
       setCheckedValue(null);
