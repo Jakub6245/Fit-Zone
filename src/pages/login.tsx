@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { auth } from "@/config/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useGetUsers } from "@/services/fireBaseMethods";
+import {
+  getAllUsers,
+  getGivenUsers,
+  getUserFromFirebase,
+  updateUser,
+} from "@/services/firebaseUserMethods";
+
+// https://chakra-ui.com/
+// npm i react-toastify
+// react-hook-form / formik
 
 export default function Login() {
   const [inputs, setInputs] = useState({ email: "", password: "" });
@@ -14,19 +23,17 @@ export default function Login() {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-
     try {
       const user = await signInWithEmailAndPassword(
         auth,
         inputs.email,
         inputs.password
       );
-      console.log(user.user);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(useGetUsers());
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
