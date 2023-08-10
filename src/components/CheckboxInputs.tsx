@@ -29,8 +29,11 @@ const CheckboxGroup: React.FC<CheckboxGroupProps> = ({ options, onChange }) => {
           <input
             type="checkbox"
             value={option}
-            checked={option === checkedValue}
+            checked={
+              checkedValue ? option === checkedValue : option === "client"
+            }
             onChange={() => handleCheckboxChange(option)}
+            name="userType"
           />
           {option}
         </label>
