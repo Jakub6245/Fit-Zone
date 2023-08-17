@@ -6,7 +6,7 @@ export type ClientObjectType = {
   lastName: string;
   email: string;
   password: string;
-  isTrainer: boolean;
+  userType: string;
   notifications: NotificationType[];
   trainerId: string;
 };
@@ -17,7 +17,7 @@ export type TrainerObjectType = {
   lastName: string;
   email: string;
   password: string;
-  isTrainer: boolean;
+  userType: string;
   notifications: NotificationType[];
   clientList: string[];
 };

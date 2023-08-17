@@ -1,87 +1,138 @@
 import { auth, dbUsersCollection } from "@/config/firebaseConfig";
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { addUser } from "@/services/firebaseUserMethods";
 import CheckboxGroup from "@/components/CheckboxInputs";
 import { accountsTypes } from "@/config/accountsTypes";
 import { UserType } from "@/types/UserType";
+import { Formik, Field, ErrorMessage, useFormik } from "formik";
+import { validationSchema } from "@/config/registerValidationSchema";
+import { InputsType } from "@/types/InputsType";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const successfulRegisterToast = () => toast("Your account has been created");
 
 const createUserWithEmailAndPasswordPromise = (
   email: string,
   password: string,
-  onSuccess,
-  onError
+  onSuccess: (cred: UserCredential) => Promise<void> | undefined,
+  onError: (error: string) => void
 ) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then(onSuccess)
     .catch(onError);
 };
 
+const initialValues = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+};
+
 export default function Register() {
-  const [inputs, setInputs] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    isTrainer: false,
-  });
+  const [userType, setUserType] = useState("client");
 
-  const handleInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    const name = event.target.name;
-    setInputs({ ...inputs, [name]: value });
-  };
-
-  const handleCheckboxChange = (value: UserType | null) => {
-    if (value === "trainer") {
-      setInputs({ ...inputs, isTrainer: true });
-    } else {
-      setInputs({ ...inputs, isTrainer: false });
-    }
-  };
-
-  const onSuccess = (cred) => {
-    if (inputs.isTrainer) {
-      return addUser({
-        id: cred.user.uid,
-        ...inputs,
-        notifications: [],
-        clientList: [],
-      });
-    }
-    addUser({
-      id: cred.user.uid,
-      ...inputs,
-      notifications: [],
-      trainerId: "",
-    });
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
+  const handleSubmit = () => {
+    successfulRegisterToast();
     createUserWithEmailAndPasswordPromise(
-      inputs.email,
-      inputs.password,
+      formik.values.email,
+      formik.values.password,
       onSuccess,
       (error) => console.log(error)
     );
   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="firstName">FirstName:</label>
-      <input onChange={handleInputs} name="firstName" type="text" required />
-      <label htmlFor="lastName">LastName:</label>
-      <input onChange={handleInputs} name="lastName" type="text" required />
+  const formik = useFormik({
+    initialValues: initialValues,
+    onSubmit: handleSubmit,
+    validationSchema: validationSchema,
+    validateOnChange: false,
+    validateOnBlur: false,
+  });
 
-      <label htmlFor="email">Email:</label>
-      <input onChange={handleInputs} name="email" type="email" required />
-      <label htmlFor="password">Password:</label>
-      <input onChange={handleInputs} name="password" type="password" required />
-      <label htmlFor="password">I am</label>
-      <CheckboxGroup options={accountsTypes} onChange={handleCheckboxChange} />
-      <input type="submit" />
-    </form>
+  const handleCheckboxChange = (value: UserType | null) => {
+    if (value === "trainer") {
+      setUserType("trainer");
+    } else {
+      setUserType("client");
+    }
+  };
+  console.log(formik.values);
+  const onSuccess = (cred: UserCredential) => {
+    if (userType === "trainer") {
+      return addUser({
+        id: cred.user.uid,
+        ...formik.values,
+        notifications: [],
+        clientList: [],
+        userType,
+      });
+    }
+    addUser({
+      id: cred.user.uid,
+      ...formik.values,
+      notifications: [],
+      trainerId: "",
+      userType,
+    });
+  };
+
+  return (
+    <div>
+      <form onSubmit={formik.handleSubmit}>
+        <div>
+          <label htmlFor="firstName">FirstName:</label>
+          <input
+            name="firstName"
+            type="text"
+            value={formik.values.firstName}
+            onChange={formik.handleChange}
+          />
+          {formik.errors.firstName}
+        </div>
+        <div>
+          <label htmlFor="lastName">LastName:</label>
+          <input
+            name="lastName"
+            type="text"
+            value={formik.values.lastName}
+            onChange={formik.handleChange}
+          />
+          {formik.errors.lastName}
+        </div>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            name="email"
+            type="email"
+            value={formik.values.email}
+            onChange={formik.handleChange}
+          />
+          {formik.errors.email}
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            name="password"
+            type="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+          />
+          {formik.errors.password}
+        </div>
+        <div>
+          <label>I am</label>
+          <CheckboxGroup
+            options={accountsTypes}
+            onChange={handleCheckboxChange}
+          />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      <ToastContainer />
+    </div>
   );
 }
 
