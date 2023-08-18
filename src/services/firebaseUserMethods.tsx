@@ -1,6 +1,6 @@
 import { setDoc, doc, getDocs, updateDoc, getDoc } from "firebase/firestore";
 import { dbUsersCollection, db, auth } from "@/config/firebaseConfig";
-import { UserType, UserObjectType, TrainerObjectType } from "@/types/UserType";
+import { UserType, UserObjectType } from "@/types/UserType";
 
 export const getAllUsers = async () => {
   try {
@@ -53,21 +53,5 @@ export const getUserFromFirebase = async (uid: string) => {
     return data;
   } catch (err) {
     console.error(err);
-  }
-};
-
-export const addUserToClientList = async (clientId: string) => {
-  try {
-    if (!auth.currentUser) return;
-    const user = (await getUserFromFirebase(
-      auth.currentUser.uid
-    )) as TrainerObjectType;
-    console.log(user);
-    updateUser(auth.currentUser.uid, {
-      ...user,
-      clientList: [...user.clientList, clientId],
-    });
-  } catch (error) {
-    console.log(error);
   }
 };

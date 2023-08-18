@@ -1,48 +1,75 @@
-import { NotificationType } from "@/types/NotificationType";
-import { getUserFromFirebase, updateUser } from "./firebaseUserMethods";
-import { UserObjectType } from "@/types/UserType";
-import { auth } from "@/config/firebaseConfig";
+import {
+  NotificationObjectType,
+  NotificationType,
+} from "@/types/NotificationType";
+import { dbNotificationCollection } from "@/config/firebaseConfig";
+import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 
-export const addNotificationToDB = async (
+export const addUsersNotificationListToDB = (userId: string) => {
+  try {
+    const notificationListRef = doc(dbNotificationCollection, userId);
+    setDoc(notificationListRef, { notifications: [] });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const deleteNotificationFromListFromDB = async (
   userId: string,
-  data: NotificationType
+  notificationId: string
 ) => {
   try {
-    const user = (await getUserFromFirebase(userId)) as UserObjectType;
-    updateUser(userId, {
-      ...user,
-      notifications: [...user.notifications, data],
+    const { notifications } = (await getNotificationList(
+      userId
+    )) as NotificationObjectType;
+    const indexToRemove = notifications.findIndex(
+      (notification) => notification.id === notificationId
+    );
+    notifications.splice(indexToRemove, 1);
+    await updateNotificationList(userId, {
+      notifications: notifications,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
-export const deleteNotificationFromDB = async (notificationId: string) => {
+export const addNotificationToListToDB = async (
+  userId: string,
+  newNotification: NotificationType
+) => {
   try {
-    if (!auth.currentUser) return;
-    const user = (await getUserFromFirebase(
-      auth.currentUser.uid
-    )) as UserObjectType;
-    await updateUser(auth.currentUser.uid, {
-      ...user,
-      notifications: removeNotificaitonFromArray(
-        user.notifications,
-        notificationId
-      ),
+    const notificationList = (await getNotificationList(
+      userId
+    )) as NotificationObjectType;
+
+    console.log(notificationList);
+    await updateNotificationList(userId, {
+      notifications: [...notificationList.notifications, newNotification],
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
-const removeNotificaitonFromArray = (
-  array: NotificationType[],
-  elementId: string
+export const updateNotificationList = async (
+  userId: string,
+  notificationList: NotificationObjectType
 ) => {
-  const removeIndex = array.findIndex((el) => el.id === elementId);
-  if (removeIndex === -1) return array;
-  array.splice(removeIndex, 1);
+  await updateDoc(doc(dbNotificationCollection, userId), {
+    ...notificationList,
+  });
+};
 
-  return array;
+export const getNotificationList = async (userId: string) => {
+  try {
+    // const isInDB = await isUserInDB(uid);
+    const response = await getDoc(doc(dbNotificationCollection, userId));
+
+    const data = response.data();
+
+    return data;
+  } catch (err) {
+    console.error(err);
+  }
 };
