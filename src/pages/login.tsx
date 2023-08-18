@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { auth } from "@/config/firebaseConfig";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
 import { validationSchema } from "@/config/loginValidationSchema";
+import { createToastNotification } from "@/helpers/createToastNotification";
 
 // https://chakra-ui.com/
 // npm i react-toastify
 // react-hook-form / formik
-
-const successfulLoginToast = () => toast("You are logged in");
-
-const failedLoginToast = () => toast("Wrong email or password");
 
 const initialValues = { email: "", password: "" };
 
@@ -24,10 +21,11 @@ export default function Login() {
         formik.values.email,
         formik.values.password
       );
-      if (user) successfulLoginToast();
-      console.log(user);
+      if (user) {
+        createToastNotification("You are logged in!");
+      }
     } catch (error) {
-      failedLoginToast();
+      createToastNotification("Wrong email or password");
       console.log(error);
     }
   };

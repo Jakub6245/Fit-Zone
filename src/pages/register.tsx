@@ -10,13 +10,16 @@ import { validationSchema } from "@/config/registerValidationSchema";
 import { InputsType } from "@/types/InputsType";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createToastNotification } from "@/helpers/createToastNotification";
 
-const successfulRegisterToast = () => toast("Your account has been created");
+import { addUsersNotificationListToDB } from "@/services/firebaseNotificationMethods";
+import { addUsersClientListToDB } from "@/services/firebaseClientListMethods";
+import { addUsersTrainerToDB } from "@/services/firebaseTrainerMethods";
 
 const createUserWithEmailAndPasswordPromise = (
   email: string,
   password: string,
-  onSuccess: (cred: UserCredential) => Promise<void> | undefined,
+  onSuccess: (cred: UserCredential) => void,
   onError: (error: string) => void
 ) => {
   createUserWithEmailAndPassword(auth, email, password)
@@ -35,12 +38,11 @@ export default function Register() {
   const [userType, setUserType] = useState("client");
 
   const handleSubmit = () => {
-    successfulRegisterToast();
     createUserWithEmailAndPasswordPromise(
       formik.values.email,
       formik.values.password,
       onSuccess,
-      (error) => console.log(error)
+      onError
     );
   };
 
@@ -61,22 +63,23 @@ export default function Register() {
   };
   console.log(formik.values);
   const onSuccess = (cred: UserCredential) => {
-    if (userType === "trainer") {
-      return addUser({
-        id: cred.user.uid,
-        ...formik.values,
-        notifications: [],
-        clientList: [],
-        userType,
-      });
-    }
     addUser({
       id: cred.user.uid,
       ...formik.values,
-      notifications: [],
-      trainerId: "",
       userType,
     });
+    addUsersNotificationListToDB(cred.user.uid);
+    createToastNotification("Your account has been created");
+    if (userType === "trainer") {
+      return addUsersClientListToDB(cred.user.uid);
+    }
+    if (userType === "client") {
+      return addUsersTrainerToDB(cred.user.uid);
+    }
+  };
+
+  const onError = () => {
+    createToastNotification("Wrong inputs data");
   };
 
   return (
@@ -135,26 +138,3 @@ export default function Register() {
     </div>
   );
 }
-
-// const res = {
-//   error: true,
-//   response: {
-//     validation: {
-//       email: {
-//         message: "bad email",
-//       },
-//     },
-//   },
-// };
-
-// const Input = ({ name }) => {
-//   return (
-//     <>
-//       {res.error && (
-//         <p style={{ color: "red" }}>{res.response.validation[name].message}</p>
-//       )}
-//       <label htmlFor="email">Email:</label>
-//       <input onChange={handleInputs} name={name} type="email" required />
-//     </>
-//   );
-// };
