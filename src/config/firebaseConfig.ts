@@ -20,3 +20,6 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const auth = getAuth(app);
 export const dbUsersCollection = collection(db, "users");
+export const dbNotificationCollection = collection(db, "notification");
+export const dbTrainerCollection = collection(db, "trainer");
+export const dbClientListCollection = collection(db, "clientList");

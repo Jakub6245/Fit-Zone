@@ -3,3 +3,7 @@ export type NotificationType = {
   from: string;
   message: string;
 };
+
+export type NotificationObjectType = {
+  notifications: NotificationType[];
+};
