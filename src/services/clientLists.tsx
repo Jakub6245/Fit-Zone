@@ -1,10 +1,5 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { NotificationObjectType } from "@/types/NotificationType";
-import {
-  deleteNotificationFromListFromDB,
-  getNotificationList,
-} from "./firebaseNotificationMethods";
 import {
   addClientToListToDB,
   getClientList,

@@ -1,6 +1,3 @@
-import { boundNotificationActions } from "@/hooks/useBindActionsToDispatch";
-import { deleteNotificationFromListFromDB } from "@/services/firebaseNotificationMethods";
-import { addClientToListToDB } from "@/services/firebaseClientListMethods";
 import { NotificationType } from "@/types/NotificationType";
 import { StateType } from "@/types/StateType";
 import { useSelector } from "react-redux";

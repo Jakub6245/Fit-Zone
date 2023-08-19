@@ -1,13 +1,5 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
-import {
-  arrayUnion,
-  collection,
-  doc,
-  updateDoc,
-  getDocs,
-  getDoc,
-  DocumentData,
-} from "firebase/firestore";
+import { doc, getDocs, getDoc } from "firebase/firestore";
 import { dbUsersCollection, db } from "@/config/firebaseConfig";
 import { UserObjectType } from "@/types/UserType";
 

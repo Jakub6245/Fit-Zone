@@ -1,23 +1,6 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
-import {
-  arrayUnion,
-  collection,
-  doc,
-  updateDoc,
-  getDocs,
-  getDoc,
-  DocumentData,
-} from "firebase/firestore";
-import {
-  dbUsersCollection,
-  db,
-  dbNotificationCollection,
-} from "@/config/firebaseConfig";
-import { UserObjectType } from "@/types/UserType";
-import {
-  NotificationObjectType,
-  NotificationType,
-} from "@/types/NotificationType";
+
+import { NotificationObjectType } from "@/types/NotificationType";
 import {
   deleteNotificationFromListFromDB,
   getNotificationList,
