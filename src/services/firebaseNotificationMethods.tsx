@@ -29,6 +29,7 @@ export const deleteNotificationFromListFromDB = async (
     await updateNotificationList(userId, {
       notifications: notifications,
     });
+    return notifications;
   } catch (error) {
     console.error(error);
   }

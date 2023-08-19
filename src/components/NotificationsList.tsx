@@ -15,23 +15,23 @@ const NotificationsList = () => {
   const notifications = useSelector(
     (state: StateType) => state.notificationReducer.notifications
   );
-  const { data, isFetching } = useFetchUsersNotificationsQuery(user.id, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data, isFetching } = useFetchUsersNotificationsQuery(user.id);
 
-  useEffect(() => {
-    if (data) {
-      console.log(data.notifications);
-      boundNotificationActions.setNotifications({
-        notifications: data.notifications,
-      });
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (data) {
+  //     console.log(data.notifications);
+  //     boundNotificationActions.setNotifications({
+  //       notifications: data.notifications,
+  //     });
+  //   }
+  // }, [data]);
 
   if (isFetching) {
     return <div>...Loading</div>;
   }
-  console.log(notifications, data?.notifications);
+
+  if (!data) return;
+  console.log(data.notifications);
 
   // useEffect(() => {
   //   (async () => {
@@ -47,10 +47,10 @@ const NotificationsList = () => {
 
   return (
     <div>
-      {notifications.map((el, i) => {
+      {data.notifications.map((el, i) => {
         return <Notification key={i} data={el} />;
       })}
-      {notifications.length === 0 && (
+      {data.notifications.length === 0 && (
         <div>You do not have any notifications</div>
       )}
     </div>
