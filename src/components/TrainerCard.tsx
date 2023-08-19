@@ -2,10 +2,10 @@ import React from "react";
 import Image from "next/image";
 import defaultImage from "../../images.png";
 import { UserObjectType } from "@/types/UserType";
-import { addNotificationToDB } from "@/services/firebaseNotificationMethods";
+import { uuid } from "uuidv4";
 import { auth } from "@/config/firebaseConfig";
-import { getUserFromFirebase } from "@/services/firebaseUserMethods";
-import uuid from "uuid4";
+import { addNotificationToListToDB } from "@/services/firebaseNotificationMethods";
+
 import { useSelector } from "react-redux";
 import { StateType } from "@/types/StateType";
 
@@ -25,7 +25,7 @@ export const TrainerCard = ({
         message: `the user ${user.firstName} ${user.lastName} wants to work with you`,
       };
 
-      addNotificationToDB(trainerData.id, notificationObject);
+      addNotificationToListToDB(trainerData.id, notificationObject);
     }
   };
 
