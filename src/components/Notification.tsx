@@ -4,24 +4,7 @@ import { useSelector } from "react-redux";
 import { createToastNotification } from "@/helpers/createToastNotification";
 import { useDeleteNotificationFromListMutation } from "@/services/notifications";
 import { useAddClientToClientListMutation } from "@/services/clientLists";
-
-const handleDecline = (onSuccess: () => void, onError: () => void) => {
-  try {
-    onSuccess();
-  } catch (error) {
-    console.log(error);
-    onError();
-  }
-};
-
-const handleAccept = (onSuccess: () => void, onError: () => void) => {
-  try {
-    onSuccess();
-  } catch (error) {
-    console.log(error);
-    onError();
-  }
-};
+import { handlePromise } from "@/helpers/handlePromise";
 
 const Notification = ({ data }: { data: NotificationType }) => {
   const user = useSelector((state: StateType) => state.userReducer.user);
@@ -51,10 +34,10 @@ const Notification = ({ data }: { data: NotificationType }) => {
   return (
     <div>
       <p>{data.message}</p>
-      <button onClick={() => handleAccept(onSuccessAccept, onError)}>
+      <button onClick={() => handlePromise(onSuccessAccept, onError)}>
         accept
       </button>
-      <button onClick={() => handleDecline(onSuccessDecline, onError)}>
+      <button onClick={() => handlePromise(onSuccessDecline, onError)}>
         decline
       </button>
     </div>
