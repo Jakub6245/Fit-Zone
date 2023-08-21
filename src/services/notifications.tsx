@@ -1,47 +1,47 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
+
+import { NotificationObjectType } from "@/types/NotificationType";
 import {
-  arrayUnion,
-  collection,
-  doc,
-  updateDoc,
-  getDocs,
-  getDoc,
-  DocumentData,
-} from "firebase/firestore";
-import {
-  dbUsersCollection,
-  db,
-  dbNotificationCollection,
-} from "@/config/firebaseConfig";
-import { UserObjectType } from "@/types/UserType";
-import { NotificationType } from "@/types/NotificationType";
+  deleteNotificationFromListFromDB,
+  getNotificationList,
+} from "./firebaseNotificationMethods";
 
 export const notifications = createApi({
   reducerPath: "notifications",
   baseQuery: fakeBaseQuery(),
   tagTypes: ["Notifications"],
   endpoints: (builder) => ({
-    fetchUsersNotifications: builder.query<
-      { notifications: NotificationType[] },
-      string
-    >({
+    fetchUsersNotifications: builder.query<NotificationObjectType, string>({
       async queryFn(userId: string) {
         try {
-          const notifications = await getDoc(
-            doc(dbNotificationCollection, userId)
-          );
+          const data = await getNotificationList(userId);
 
-          return {
-            data: notifications.data() as { notifications: NotificationType[] },
-          };
-        } catch (error: any) {
-          console.error(error.message);
-          return { error: error.message };
+          return { data: data as NotificationObjectType };
+        } catch (error) {
+          return { error: error };
         }
       },
       providesTags: ["Notifications"],
     }),
+    deleteNotificationFromList: builder.mutation<
+      string,
+      { userId: string; notificationId: string }
+    >({
+      async queryFn({ userId, notificationId }) {
+        try {
+          await deleteNotificationFromListFromDB(userId, notificationId);
+
+          return { data: "ok" };
+        } catch (error) {
+          return { error: error };
+        }
+      },
+      invalidatesTags: ["Notifications"],
+    }),
   }),
 });
 
-export const { useFetchUsersNotificationsQuery } = notifications;
+export const {
+  useFetchUsersNotificationsQuery,
+  useDeleteNotificationFromListMutation,
+} = notifications;

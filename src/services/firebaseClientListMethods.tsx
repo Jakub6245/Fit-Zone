@@ -1,14 +1,6 @@
-import { NotificationType } from "@/types/NotificationType";
-import { getUserFromFirebase, updateUser } from "./firebaseUserMethods";
-import { UserObjectType } from "@/types/UserType";
-import {
-  auth,
-  dbNotificationCollection,
-  db,
-  dbClientListCollection,
-} from "@/config/firebaseConfig";
+import { db, dbClientListCollection } from "@/config/firebaseConfig";
 import { setDoc, doc, updateDoc, getDoc } from "firebase/firestore";
-import { notifications } from "./notifications";
+
 import { ClientListType } from "@/types/ClientListType";
 
 export const addUsersClientListToDB = async (userId: string) => {

@@ -1,5 +1,5 @@
 import { setDoc, doc, getDocs, updateDoc, getDoc } from "firebase/firestore";
-import { dbUsersCollection, db, auth } from "@/config/firebaseConfig";
+import { dbUsersCollection, db } from "@/config/firebaseConfig";
 import { UserType, UserObjectType } from "@/types/UserType";
 
 export const getAllUsers = async () => {

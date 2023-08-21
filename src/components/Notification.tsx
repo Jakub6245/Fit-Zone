@@ -1,23 +1,45 @@
-import { deleteNotificationFromDB } from "@/services/firebaseNotificationMethods";
-import { addUserToClientList } from "@/services/firebaseUserMethods";
 import { NotificationType } from "@/types/NotificationType";
-
-const handleDecline = (notificationId: string) => {
-  deleteNotificationFromDB(notificationId);
-};
-
-const handleAccept = (clientId: string, notificationId: string) => {
-  addUserToClientList(clientId)
-    .then(() => deleteNotificationFromDB(notificationId))
-    .catch((error) => console.log(error));
-};
+import { StateType } from "@/types/StateType";
+import { useSelector } from "react-redux";
+import { createToastNotification } from "@/helpers/createToastNotification";
+import { useDeleteNotificationFromListMutation } from "@/services/notifications";
+import { useAddClientToClientListMutation } from "@/services/clientLists";
+import { handlePromise } from "@/helpers/handlePromise";
 
 const Notification = ({ data }: { data: NotificationType }) => {
+  const user = useSelector((state: StateType) => state.userReducer.user);
+  const [deleteNotificationFromList] = useDeleteNotificationFromListMutation();
+  const [addClientToClientList] = useAddClientToClientListMutation();
+  const onSuccessDecline = () => {
+    deleteNotificationFromList({
+      userId: user.id,
+      notificationId: data.id,
+    });
+    createToastNotification("You declined colaboration");
+  };
+
+  const onSuccessAccept = () => {
+    addClientToClientList({ userId: user.id, clientId: data.from });
+    deleteNotificationFromList({
+      userId: user.id,
+      notificationId: data.id,
+    });
+    createToastNotification("You accepted colaboration");
+  };
+
+  const onError = () => {
+    createToastNotification("Something went wrong");
+  };
+
   return (
     <div>
       <p>{data.message}</p>
-      <button onClick={() => handleAccept(data.from, data.id)}>accept</button>
-      <button onClick={() => handleDecline(data.id)}>decline</button>
+      <button onClick={() => handlePromise(onSuccessAccept, onError)}>
+        accept
+      </button>
+      <button onClick={() => handlePromise(onSuccessDecline, onError)}>
+        decline
+      </button>
     </div>
   );
 };

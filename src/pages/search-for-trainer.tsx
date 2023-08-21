@@ -1,18 +1,16 @@
 import { TrainerCard } from "@/components/TrainerCard";
 import { getGivenUsers } from "@/services/firebaseUserMethods";
+import { useFetchUsersDataQuery } from "@/services/users";
 import { UserObjectType } from "@/types/UserType";
-import { useEffect, useState } from "react";
 
 const SearchForTrainer = () => {
-  const [trainers, setTrainers] = useState<UserObjectType[]>([]);
-  console.log(trainers);
-  useEffect(() => {
-    (async () => {
-      const trainers = (await getGivenUsers("trainer")) as UserObjectType[];
-      console.log(trainers);
-      setTrainers(trainers);
-    })();
-  }, []);
+  const { data, isLoading } = useFetchUsersDataQuery();
+  if (isLoading) {
+    return <div>...Loading</div>;
+  }
+
+  if (!data) return;
+  const trainers = data.filter((user) => user.userType === "trainer");
   return (
     <div>
       {trainers.map((el, i) => {

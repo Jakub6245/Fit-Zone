@@ -61,7 +61,7 @@ export default function Register() {
       setUserType("client");
     }
   };
-  console.log(formik.values);
+  
   const onSuccess = (cred: UserCredential) => {
     addUser({
       id: cred.user.uid,
