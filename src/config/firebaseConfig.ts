@@ -23,3 +23,4 @@ export const dbUsersCollection = collection(db, "users");
 export const dbNotificationCollection = collection(db, "notification");
 export const dbTrainerCollection = collection(db, "trainer");
 export const dbClientListCollection = collection(db, "clientList");
+export const dbChatCollection = collection(db, "chat");

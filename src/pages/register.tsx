@@ -15,6 +15,7 @@ import { createToastNotification } from "@/helpers/createToastNotification";
 import { addUsersNotificationListToDB } from "@/services/firebaseNotificationMethods";
 import { addUsersClientListToDB } from "@/services/firebaseClientListMethods";
 import { addUsersTrainerToDB } from "@/services/firebaseTrainerMethods";
+import { addChatObjectToDB } from "@/services/firebaseChatMethods";
 
 const createUserWithEmailAndPasswordPromise = (
   email: string,
@@ -61,7 +62,7 @@ export default function Register() {
       setUserType("client");
     }
   };
-  
+
   const onSuccess = (cred: UserCredential) => {
     addUser({
       id: cred.user.uid,
@@ -71,10 +72,11 @@ export default function Register() {
     addUsersNotificationListToDB(cred.user.uid);
     createToastNotification("Your account has been created");
     if (userType === "trainer") {
-      return addUsersClientListToDB(cred.user.uid);
+      addChatObjectToDB(cred.user.uid);
+      addUsersClientListToDB(cred.user.uid);
     }
     if (userType === "client") {
-      return addUsersTrainerToDB(cred.user.uid);
+      addUsersTrainerToDB(cred.user.uid);
     }
   };
 
