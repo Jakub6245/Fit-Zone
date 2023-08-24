@@ -1,4 +1,5 @@
-import { useFetchUsersChatsQuery } from "@/services/chats";
+import { boundChatActions } from "@/hooks/useBindActionsToDispatch";
+import { useFetchUsersChatQuery } from "@/services/chats";
 import {
   addChatObjectToDB,
   addClientToChatInDB,
@@ -10,7 +11,7 @@ import { useSelector } from "react-redux";
 
 const Client = ({ clientData }: { clientData: UserObjectType }) => {
   const user = useSelector((state: StateType) => state.userReducer.user);
-  const { data } = useFetchUsersChatsQuery({
+  const { data } = useFetchUsersChatQuery({
     userId: user.id,
     clientId: clientData.id,
   });
@@ -19,7 +20,8 @@ const Client = ({ clientData }: { clientData: UserObjectType }) => {
   return (
     <div
       onClick={() => {
-        addClientToChatInDB(user.id, clientData.id);
+        // addClientToChatInDB(user.id, clientData.id);
+        boundChatActions.setClientToChat({ client: clientData.id });
       }}
     >
       <p>

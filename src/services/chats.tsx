@@ -28,14 +28,14 @@ export const chats = createApi({
       },
       providesTags: ["Chats"],
     }),
-    addMessageToChat: builder.mutation({
-      async queryFn() {
-        try {
-        } catch (error) {
-          return { error: error };
-        }
-      },
-    }),
+    // addMessageToChat: builder.mutation({
+    //   async queryFn() {
+    //     try {
+    //     } catch (error) {
+    //       return { error: error };
+    //     }
+    //   },
+    // }),
   }),
 });
 
