@@ -75,3 +75,23 @@ export const getUsersChatList = async (userId: string) => {
     console.error(err);
   }
 };
+
+export const addMessageToChatInDB = async (
+  userId: string,
+  clientId: string,
+  message: MessageType
+) => {
+  try {
+    const chatList = (await getUsersChatList(userId)) as ChatListType;
+    const chatObject = (await getChatObject(userId, clientId)) as ChatType;
+
+    const chatIndex = chatList.chats.findIndex(
+      (chat) => chat.withWho === chatObject.withWho
+    );
+    console.log(chatIndex);
+    chatList.chats[chatIndex].messages.push(message);
+    await updateChatObject(userId, chatList);
+  } catch (err) {
+    console.error(err);
+  }
+};
