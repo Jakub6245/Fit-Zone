@@ -5,8 +5,9 @@ import {
   deleteNotificationFromListFromDB,
   getNotificationList,
 } from "./firebaseNotificationMethods";
-import { getChatObject } from "./firebaseChatMethods";
+import { addMessageToChatInDB, getChatObject } from "./firebaseChatMethods";
 import { ChatListType, ChatType } from "@/types/ChatListTypes";
+import { MessageType } from "@/types/MessageType";
 
 export const chats = createApi({
   reducerPath: "chats",
@@ -28,15 +29,21 @@ export const chats = createApi({
       },
       providesTags: ["Chats"],
     }),
-    // addMessageToChat: builder.mutation({
-    //   async queryFn() {
-    //     try {
-    //     } catch (error) {
-    //       return { error: error };
-    //     }
-    //   },
-    // }),
+    addMessageToChat: builder.mutation<
+      string,
+      { userId: string; clientId: string; message: MessageType }
+    >({
+      async queryFn({ userId, clientId, message }) {
+        try {
+          await addMessageToChatInDB(userId, clientId, message);
+          return { data: "ok" };
+        } catch (error) {
+          return { error: error };
+        }
+      },
+      invalidatesTags: ["Chats"],
+    }),
   }),
 });
 
-export const { useFetchUsersChatQuery } = chats;
+export const { useFetchUsersChatQuery, useAddMessageToChatMutation } = chats;
