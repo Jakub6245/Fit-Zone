@@ -5,9 +5,10 @@ import { useFetchUsersClientListQuery } from "@/services/clientLists";
 import Client from "./Client";
 import { useFetchUsersDataQuery } from "@/services/users";
 import { searchForUsersById } from "@/helpers/searchForUsers";
+import { useUser } from "@/store/store";
 
 const ClientList = () => {
-  const user = useSelector((state: StateType) => state.userReducer.user);
+  const user = useUser();
 
   const clientsId = useFetchUsersClientListQuery(user.id);
   const users = useFetchUsersDataQuery();

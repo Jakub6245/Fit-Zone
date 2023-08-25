@@ -1,12 +1,7 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
-
-import { NotificationObjectType } from "@/types/NotificationType";
-import {
-  deleteNotificationFromListFromDB,
-  getNotificationList,
-} from "./firebaseNotificationMethods";
-import { addMessageToChatInDB, getChatObject } from "./firebaseChatMethods";
-import { ChatListType, ChatType } from "@/types/ChatListTypes";
+import { addMessageToChatInDB } from "./firebaseChatMethods";
+import { getChatObject } from "./firebaseChatMethods";
+import { ChatType } from "@/types/ChatListTypes";
 import { MessageType } from "@/types/MessageType";
 
 export const chats = createApi({
@@ -16,11 +11,11 @@ export const chats = createApi({
   endpoints: (builder) => ({
     fetchUsersChat: builder.query<
       ChatType,
-      { userId: string; clientId: string }
+      { userId: string; chatWithUser: string }
     >({
-      async queryFn({ userId, clientId }) {
+      async queryFn({ userId, chatWithUser }) {
         try {
-          const data = await getChatObject(userId, clientId);
+          const data = await getChatObject(userId, chatWithUser);
 
           return { data: data as ChatType };
         } catch (error) {
@@ -31,11 +26,11 @@ export const chats = createApi({
     }),
     addMessageToChat: builder.mutation<
       string,
-      { userId: string; clientId: string; message: MessageType }
+      { userId: string; chatWithUser: string; message: MessageType }
     >({
-      async queryFn({ userId, clientId, message }) {
+      async queryFn({ userId, chatWithUser, message }) {
         try {
-          await addMessageToChatInDB(userId, clientId, message);
+          await addMessageToChatInDB(userId, chatWithUser, message);
           return { data: "ok" };
         } catch (error) {
           return { error: error };

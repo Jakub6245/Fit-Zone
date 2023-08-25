@@ -1,27 +1,21 @@
 import { boundChatActions } from "@/hooks/useBindActionsToDispatch";
 import { useFetchUsersChatQuery } from "@/services/chats";
-import {
-  addChatObjectToDB,
-  addClientToChatInDB,
-  getChatObject,
-} from "@/services/firebaseChatMethods";
-import { StateType } from "@/types/StateType";
+import { useUser } from "@/store/store";
+
 import { UserObjectType } from "@/types/UserType";
-import { useSelector } from "react-redux";
 
 const Client = ({ clientData }: { clientData: UserObjectType }) => {
-  const user = useSelector((state: StateType) => state.userReducer.user);
+  const user = useUser();
   const { data } = useFetchUsersChatQuery({
     userId: user.id,
-    clientId: clientData.id,
+    chatWithUser: clientData.id,
   });
   if (!data) return;
-  console.log(data);
+
   return (
     <div
       onClick={() => {
-        // addClientToChatInDB(user.id, clientData.id);
-        boundChatActions.setClientToChat({ client: clientData.id });
+        boundChatActions.setChatWithUserToChat({ chatWithUser: clientData.id });
       }}
     >
       <p>

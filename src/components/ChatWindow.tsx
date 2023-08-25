@@ -2,15 +2,15 @@ import { useFetchSingleUserDataQuery } from "@/services/users";
 import { ChatType } from "@/types/ChatListTypes";
 import ChatMessage from "./ChatMessage";
 import { useState } from "react";
-import { addMessageToChatInDB } from "@/services/firebaseChatMethods";
-import { useSelector } from "react-redux";
-import { StateType } from "@/types/StateType";
+
 import { useAddMessageToChatMutation } from "@/services/chats";
+import { useChatWithUser, useUser } from "@/store/store";
 
 const ChatWindow = ({ chatData }: { chatData: ChatType }) => {
-  const { data, isFetching } = useFetchSingleUserDataQuery(chatData.withWho);
+  const chatWith = useChatWithUser();
+  const { data, isFetching } = useFetchSingleUserDataQuery(chatWith);
   const [message, setMessage] = useState("");
-  const user = useSelector((state: StateType) => state.userReducer.user);
+  const user = useUser();
   const [addMessageToChat] = useAddMessageToChatMutation();
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
@@ -25,13 +25,19 @@ const ChatWindow = ({ chatData }: { chatData: ChatType }) => {
   if (!data) return;
 
   const handleBtn = () => {
-    if (message.length > 0) {
+    if (message.length === 0) return;
+    if (user.userType === "trainer") {
       addMessageToChat({
         userId: user.id,
-        clientId: chatData.withWho,
+        chatWithUser: chatWith,
         message: messageObject,
       });
     }
+    addMessageToChat({
+      userId: chatWith,
+      chatWithUser: user.id,
+      message: messageObject,
+    });
   };
 
   return (

@@ -1,13 +1,14 @@
 import { NotificationType } from "@/types/NotificationType";
-import { StateType } from "@/types/StateType";
-import { useSelector } from "react-redux";
+
 import { createToastNotification } from "@/helpers/createToastNotification";
 import { useDeleteNotificationFromListMutation } from "@/services/notifications";
 import { useAddClientToClientListMutation } from "@/services/clientLists";
 import { handlePromise } from "@/helpers/handlePromise";
+import { addChatObjectToDB } from "@/services/firebaseChatMethods";
+import { useUser } from "@/store/store";
 
 const Notification = ({ data }: { data: NotificationType }) => {
-  const user = useSelector((state: StateType) => state.userReducer.user);
+  const user = useUser();
   const [deleteNotificationFromList] = useDeleteNotificationFromListMutation();
   const [addClientToClientList] = useAddClientToClientListMutation();
   const onSuccessDecline = () => {
@@ -20,6 +21,8 @@ const Notification = ({ data }: { data: NotificationType }) => {
 
   const onSuccessAccept = () => {
     addClientToClientList({ userId: user.id, clientId: data.from });
+    addClientToClientList({ userId: data.from, clientId: user.id });
+    addChatObjectToDB(user.id, data.from);
     deleteNotificationFromList({
       userId: user.id,
       notificationId: data.id,

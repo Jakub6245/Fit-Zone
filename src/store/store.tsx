@@ -7,6 +7,8 @@ import { firestoreApi } from "@/services/users";
 import { notifications } from "@/services/notifications";
 import { clientList } from "@/services/clientLists";
 import { chats } from "@/services/chats";
+import { useSelector } from "react-redux";
+import { StateType } from "@/types/StateType";
 
 const store = configureStore({
   reducer: {
@@ -27,4 +29,10 @@ const store = configureStore({
     ]),
 });
 
+export const useUser = () =>
+  useSelector((state: StateType) => state.userReducer.user);
+export const useNotifications = () =>
+  useSelector((state: StateType) => state.notificationReducer.notifications);
+export const useChatWithUser = () =>
+  useSelector((state: StateType) => state.chatReducer.chatWithUser);
 export default store;

@@ -7,9 +7,6 @@ import { useFormik } from "formik";
 import { validationSchema } from "@/config/loginValidationSchema";
 import { createToastNotification } from "@/helpers/createToastNotification";
 
-// https://chakra-ui.com/
-// npm i react-toastify
-// react-hook-form / formik
 
 const initialValues = { email: "", password: "" };
 

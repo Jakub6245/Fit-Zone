@@ -40,23 +40,3 @@ export const boundChatActions = bindActionsToDispatch(
   store.dispatch,
   chatActions
 );
-
-// export const boundProductActions = bindActionsToDispatch(store.dispatch, {
-//   ...productActions,
-//   fetchAllProductsThunk,
-// });
-
-// export const boundCartActions = bindActionsToDispatch(
-//   store.dispatch,
-//   cartActions
-// );
-
-// export const boundSearchActions = bindActionsToDispatch(
-//   store.dispatch,
-//   searchActions
-// );
-
-// export const boundLoginActions = bindActionsToDispatch(
-//   store.dispatch,
-//   loginActions
-// );

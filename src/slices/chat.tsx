@@ -1,24 +1,18 @@
-import { createToastNotification } from "@/helpers/createToastNotification";
-import { searchNotificationById } from "@/helpers/searchNotificationById";
-import { NotificationType } from "@/types/NotificationType";
-import { UserObjectType } from "@/types/UserType";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { DocumentData } from "firebase/firestore";
 
-const initialState: { client: string | null } = {
-  client: null,
+const initialState: { chatWithUser: string | null } = {
+  chatWithUser: null,
 };
 
 const chatSlice = createSlice({
-  name: "client",
+  name: "chatWithUser",
   initialState,
   reducers: {
-    setClientToChat: (
+    setChatWithUserToChat: (
       state,
-      action: PayloadAction<{ client: string | null }>
+      action: PayloadAction<{ chatWithUser: string | null }>
     ) => {
-      state.client = action.payload.client;
-      console.log(state.client);
+      state.chatWithUser = action.payload.chatWithUser;
     },
   },
 });

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import NotificationsList from "./NotificationsList";
-import ClientList from "./ClientList";
 import { useRouter } from "next/router";
 
 const Navigation = () => {

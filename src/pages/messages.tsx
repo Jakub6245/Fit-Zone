@@ -2,17 +2,29 @@ import ChatWindow from "@/components/ChatWindow";
 import ClientList from "@/components/ClientList";
 import Navigation from "@/components/Navigation";
 import { useFetchUsersChatQuery } from "@/services/chats";
-import { StateType } from "@/types/StateType";
-import { useSelector } from "react-redux";
+import { useChatWithUser, useUser } from "@/store/store";
 
 const Messages = () => {
-  const user = useSelector((state: StateType) => state.userReducer.user);
-  const clientId = useSelector((state: StateType) => state.chatReducer.client);
-  const { data, isFetching } = useFetchUsersChatQuery({
-    userId: user.id,
-    clientId: clientId,
-  });
+  const user = useUser();
+  const chatWithUserId = useChatWithUser();
 
+  const getChatObject = () => {
+    if (user.userType === "trainer") {
+      return {
+        userId: user.id,
+        chatWithUser: chatWithUserId,
+      };
+    }
+
+    return {
+      userId: chatWithUserId,
+      chatWithUser: user.id,
+    };
+  };
+  console.log(getChatObject());
+
+  const { data, isFetching } = useFetchUsersChatQuery(getChatObject());
+  console.log(data);
   if (isFetching) {
     return <div>...Loading</div>;
   }
@@ -23,7 +35,7 @@ const Messages = () => {
     <div>
       <Navigation />
       <ClientList />
-      {clientId && <ChatWindow chatData={data} />}
+      {chatWithUserId && <ChatWindow chatData={data} />}
     </div>
   );
 };

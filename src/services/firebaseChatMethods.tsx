@@ -1,30 +1,29 @@
+import { db, dbChatCollection } from "@/config/firebaseConfig";
 import {
-  db,
-  dbChatCollection,
-  dbClientListCollection,
-} from "@/config/firebaseConfig";
-import { setDoc, doc, updateDoc, getDoc } from "firebase/firestore";
+  setDoc,
+  doc,
+  updateDoc,
+  getDocs,
+  collection,
+  DocumentData,
+} from "firebase/firestore";
 
-import { ClientListType } from "@/types/ClientListType";
-import { ChatListType, ChatType } from "@/types/ChatListTypes";
+import { ChatType } from "@/types/ChatListTypes";
 import { MessageType } from "@/types/MessageType";
+import { uuid } from "uuidv4";
 
-export const addChatObjectToDB = async (userId: string) => {
+export const addChatObjectToDB = async (
+  trainerId: string,
+  clientId: string
+) => {
   try {
-    const chatObjectRef = doc(dbChatCollection, userId);
-    await setDoc(chatObjectRef, { chats: [] });
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-export const addClientToChatInDB = async (userId: string, clientId: string) => {
-  try {
-    const chatObject = (await getUsersChatList(userId)) as ChatListType;
-
-    console.log(chatObject);
-    await updateChatObject(userId, {
-      chats: [...chatObject.chats, { withWho: clientId, messages: [] }],
+    const chatId = uuid();
+    const chatObjectRef = doc(dbChatCollection, chatId);
+    await setDoc(chatObjectRef, {
+      id: chatId,
+      trainerId,
+      clientId,
+      messages: [],
     });
   } catch (error) {
     console.error(error);
@@ -32,29 +31,34 @@ export const addClientToChatInDB = async (userId: string, clientId: string) => {
 };
 
 export const updateChatObject = async (
-  userId: string,
-  chatObject: ChatListType
+  chatId: string,
+  chatObject: ChatType
 ) => {
-  await updateDoc(doc(dbChatCollection, userId), {
+  await updateDoc(doc(dbChatCollection, chatId), {
     ...chatObject,
   });
 };
 
-export const getChatObject = async (userId: string, clientId: string) => {
+export const getAllChats = async () => {
+  const docRefs = await getDocs(collection(db, "chat"));
+
+  const res = [] as DocumentData[];
+
+  docRefs.forEach((chat) => {
+    res.push(chat.data());
+  });
+
+  return res;
+};
+
+export const getChatObject = async (trainerId: string, clientId: string) => {
   try {
-    // const isInDB = await isUserInDB(uid);
-    const response = await getDoc(doc(dbChatCollection, userId));
+    const chats = (await getAllChats()) as ChatType[];
 
-    const data = response.data();
-
-    if (!data) return;
-
-    console.log(data);
-
-    const chatObject = data.chats.find(
-      (el: ChatType) => el.withWho === clientId
+    const chatObject = chats.find(
+      (el: ChatType) => el.trainerId === trainerId && el.clientId === clientId
     );
-    console.log(chatObject);
+
     if (!chatObject) return {};
 
     return chatObject;
@@ -63,34 +67,16 @@ export const getChatObject = async (userId: string, clientId: string) => {
   }
 };
 
-export const getUsersChatList = async (userId: string) => {
-  try {
-    // const isInDB = await isUserInDB(uid);
-    const response = await getDoc(doc(dbChatCollection, userId));
-
-    const data = response.data();
-
-    return data;
-  } catch (err) {
-    console.error(err);
-  }
-};
-
 export const addMessageToChatInDB = async (
   userId: string,
-  clientId: string,
+  chatWithUser: string,
   message: MessageType
 ) => {
   try {
-    const chatList = (await getUsersChatList(userId)) as ChatListType;
-    const chatObject = (await getChatObject(userId, clientId)) as ChatType;
+    const chatObject = (await getChatObject(userId, chatWithUser)) as ChatType;
 
-    const chatIndex = chatList.chats.findIndex(
-      (chat) => chat.withWho === chatObject.withWho
-    );
-    console.log(chatIndex);
-    chatList.chats[chatIndex].messages.push(message);
-    await updateChatObject(userId, chatList);
+    chatObject.messages.push(message);
+    await updateChatObject(chatObject.id, chatObject);
   } catch (err) {
     console.error(err);
   }

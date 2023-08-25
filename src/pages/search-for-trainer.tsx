@@ -1,7 +1,6 @@
 import { TrainerCard } from "@/components/TrainerCard";
-import { getGivenUsers } from "@/services/firebaseUserMethods";
+
 import { useFetchUsersDataQuery } from "@/services/users";
-import { UserObjectType } from "@/types/UserType";
 
 const SearchForTrainer = () => {
   const { data, isLoading } = useFetchUsersDataQuery();
