@@ -22,7 +22,10 @@ export const TrainerCard = ({
         message: `the user ${user.firstName} ${user.lastName} wants to work with you`,
       };
 
-      addNotificationToListToDB(trainerData.id, notificationObject);
+      addNotificationToListToDB(
+        trainerData.notificationListId,
+        notificationObject
+      );
     }
   };
 

@@ -1,8 +1,6 @@
 import { MessageType } from "./MessageType";
 
 export type ChatType = {
-  id: string;
-  trainerId: string;
-  clientId: string;
+  users: string[];
   messages: MessageType[];
 };

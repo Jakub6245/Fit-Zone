@@ -12,9 +12,9 @@ export const notifications = createApi({
   tagTypes: ["Notifications"],
   endpoints: (builder) => ({
     fetchUsersNotifications: builder.query<NotificationObjectType, string>({
-      async queryFn(userId: string) {
+      async queryFn(notificationId: string) {
         try {
-          const data = await getNotificationList(userId);
+          const data = await getNotificationList(notificationId);
 
           return { data: data as NotificationObjectType };
         } catch (error) {

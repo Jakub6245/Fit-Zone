@@ -4,27 +4,25 @@ import {
   doc,
   updateDoc,
   getDocs,
+  getDoc,
   collection,
   DocumentData,
+  query,
+  where,
 } from "firebase/firestore";
 
 import { ChatType } from "@/types/ChatListTypes";
 import { MessageType } from "@/types/MessageType";
 import { uuid } from "uuidv4";
 
-export const addChatObjectToDB = async (
-  trainerId: string,
-  clientId: string
-) => {
+export const addChatObjectToDB = (trainerId: string, clientId: string) => {
   try {
-    const chatId = uuid();
-    const chatObjectRef = doc(dbChatCollection, chatId);
-    await setDoc(chatObjectRef, {
-      id: chatId,
-      trainerId,
-      clientId,
+    const chatObjectRef = doc(dbChatCollection);
+    setDoc(chatObjectRef, {
+      users: [trainerId, clientId],
       messages: [],
     });
+    return chatObjectRef.id;
   } catch (error) {
     console.error(error);
   }
@@ -51,17 +49,34 @@ export const getAllChats = async () => {
   return res;
 };
 
-export const getChatObject = async (trainerId: string, clientId: string) => {
+export const getChatIdObject = async (userId: string, clientId: string) => {
   try {
-    const chats = (await getAllChats()) as ChatType[];
-
-    const chatObject = chats.find(
-      (el: ChatType) => el.trainerId === trainerId && el.clientId === clientId
+    const q = query(
+      dbChatCollection,
+      where("users", "array-contains", clientId)
     );
+    const querySnapshot = await getDocs(q);
+    let chatObjectId = "";
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      
+      if (data.users.includes(userId)) chatObjectId = doc.id;
+    });
+    
+    return chatObjectId;
+  } catch (err) {
+    console.error(err);
+  }
+};
 
-    if (!chatObject) return {};
+export const getChatObject = async (userId: string, clientId: string) => {
+  try {
+    const chatObjectId = await getChatIdObject(userId, clientId);
 
-    return chatObject;
+    const chatData = await getDoc(doc(dbChatCollection, chatObjectId));
+    const data = chatData.data();
+    
+    return data;
   } catch (err) {
     console.error(err);
   }
@@ -74,9 +89,10 @@ export const addMessageToChatInDB = async (
 ) => {
   try {
     const chatObject = (await getChatObject(userId, chatWithUser)) as ChatType;
-
+    const chatId = await getChatIdObject(userId, chatWithUser);
+    if (!chatId) return;
     chatObject.messages.push(message);
-    await updateChatObject(chatObject.id, chatObject);
+    await updateChatObject(chatId, chatObject);
   } catch (err) {
     console.error(err);
   }

@@ -1,16 +1,13 @@
 import { boundChatActions } from "@/hooks/useBindActionsToDispatch";
-import { useFetchUsersChatQuery } from "@/services/chats";
+// import { useFetchUsersChatQuery } from "@/services/chats";
+import { getChatObject } from "@/services/firebaseChatMethods";
 import { useUser } from "@/store/store";
 
 import { UserObjectType } from "@/types/UserType";
 
 const Client = ({ clientData }: { clientData: UserObjectType }) => {
-  const user = useUser();
-  const { data } = useFetchUsersChatQuery({
-    userId: user.id,
-    chatWithUser: clientData.id,
-  });
-  if (!data) return;
+  // const user = useUser();
+  // const { data } = useFetchUsersChatQuery(clientData.id);
 
   return (
     <div

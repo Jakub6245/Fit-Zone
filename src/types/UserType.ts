@@ -5,6 +5,9 @@ export type UserObjectType = {
   email: string;
   password: string;
   userType: string;
+  notificationListId: string;
+  clientListId: string;
+  chatList: string[];
 };
 
 export type UserType = "trainer" | "client";

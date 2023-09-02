@@ -5,7 +5,7 @@ import { addUser } from "@/services/firebaseUserMethods";
 import CheckboxGroup from "@/components/CheckboxInputs";
 import { accountsTypes } from "@/config/accountsTypes";
 import { UserType } from "@/types/UserType";
-import {  useFormik } from "formik";
+import { useFormik } from "formik";
 import { validationSchema } from "@/config/registerValidationSchema";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -13,7 +13,6 @@ import { createToastNotification } from "@/helpers/createToastNotification";
 
 import { addUsersNotificationListToDB } from "@/services/firebaseNotificationMethods";
 import { addUsersClientListToDB } from "@/services/firebaseClientListMethods";
-
 
 const createUserWithEmailAndPasswordPromise = (
   email: string,
@@ -62,16 +61,18 @@ export default function Register() {
   };
 
   const onSuccess = (cred: UserCredential) => {
+    const notificationListId = addUsersNotificationListToDB();
+    const clientListId = addUsersClientListToDB();
+    if (!notificationListId || !clientListId) return;
     addUser({
       id: cred.user.uid,
       ...formik.values,
       userType,
+      notificationListId,
+      clientListId,
+      chatList: [],
     });
-    addUsersNotificationListToDB(cred.user.uid);
     createToastNotification("Your account has been created");
-
-    
-    addUsersClientListToDB(cred.user.uid);
   };
 
   const onError = () => {

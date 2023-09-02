@@ -5,8 +5,10 @@ import { useUser } from "@/store/store";
 
 const NotificationsList = () => {
   const user = useUser();
-
-  const { data, isFetching } = useFetchUsersNotificationsQuery(user.id);
+  console.log(user);
+  const { data, isFetching } = useFetchUsersNotificationsQuery(
+    user.notificationListId
+  );
 
   if (isFetching) {
     return <div>...Loading</div>;

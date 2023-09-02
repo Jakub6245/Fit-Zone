@@ -10,7 +10,7 @@ import { useUser } from "@/store/store";
 const ClientList = () => {
   const user = useUser();
 
-  const clientsId = useFetchUsersClientListQuery(user.id);
+  const clientsId = useFetchUsersClientListQuery(user.clientListId);
   const users = useFetchUsersDataQuery();
 
   if (users.isFetching || clientsId.isFetching) {
