@@ -8,6 +8,7 @@ import {
   useFetchUsersChatQuery,
 } from "@/services/chats";
 import { useChatWithUser, useUser } from "@/store/store";
+import MessagesList from "./MessagesList";
 
 const ChatWindow = () => {
   const chatWith = useChatWithUser();
@@ -18,18 +19,14 @@ const ChatWindow = () => {
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
   };
-  const chatData = useFetchUsersChatQuery({
-    userId: user.id,
-    chatWithUser: chatWith,
-  });
 
   const messageObject = { fromWho: user.id, content: message };
 
-  if (userData.isFetching || chatData.isFetching) {
+  if (userData.isFetching) {
     return <div>...Loading</div>;
   }
 
-  if (!userData.data || !chatData.data) return;
+  if (!userData.data) return;
 
   const handleBtn = () => {
     if (message.length === 0) return;
@@ -47,11 +44,7 @@ const ChatWindow = () => {
       <h1>
         {userData.data.firstName} {userData.data.lastName}
       </h1>
-      <div>
-        {chatData.data.messages.map((message, i) => {
-          return <ChatMessage key={i} message={message} />;
-        })}
-      </div>
+      <MessagesList userId={user.id} chatWithUser={chatWith} />
       <input type="text" value={message} onChange={handleInput} />
       <button onClick={handleBtn}>Send</button>
     </div>
