@@ -6,18 +6,15 @@ import { uuid } from "uuidv4";
 import { auth } from "@/config/firebaseConfig";
 import { addNotificationToListToDB } from "@/services/firebaseNotificationMethods";
 
-import { useSelector } from "react-redux";
-import { StateType } from "@/types/StateType";
+import { useUser } from "@/store/store";
 
 export const TrainerCard = ({
   trainerData,
 }: {
   trainerData: UserObjectType;
 }) => {
-  const user = useSelector((state: StateType) => state.userReducer.user);
+  const user = useUser();
   const handleClick = async () => {
-    console.log(auth.currentUser);
-
     if (user) {
       const notificationObject = {
         id: uuid(),
@@ -25,7 +22,10 @@ export const TrainerCard = ({
         message: `the user ${user.firstName} ${user.lastName} wants to work with you`,
       };
 
-      addNotificationToListToDB(trainerData.id, notificationObject);
+      addNotificationToListToDB(
+        trainerData.notificationListId,
+        notificationObject
+      );
     }
   };
 

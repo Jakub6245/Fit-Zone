@@ -1,10 +1,10 @@
 import { useState } from "react";
 import NotificationsList from "./NotificationsList";
-import ClientList from "./ClientList";
+import { useRouter } from "next/router";
 
 const Navigation = () => {
   const [notificationsShow, setNotificationsShow] = useState(false);
-  const [clientListShow, setClientListShow] = useState(false);
+  const router = useRouter();
   return (
     <div>
       <ul>
@@ -15,10 +15,7 @@ const Navigation = () => {
           {notificationsShow && <NotificationsList />}
         </div>
         <div>
-          <li onClick={() => setClientListShow(!clientListShow)}>
-            Client list
-          </li>
-          {clientListShow && <ClientList />}
+          <li onClick={() => router.push("/messages")}>Messages</li>
         </div>
       </ul>
     </div>

@@ -2,6 +2,7 @@ import store from "@/store/store";
 
 import { actions as userActions } from "@/slices/user";
 import { actions as notificationActions } from "@/slices/notification";
+import { actions as chatActions } from "@/slices/chat";
 
 export interface ActionsObject {
   [x: string]: (...args: any[]) => any;
@@ -35,22 +36,7 @@ export const boundNotificationActions = bindActionsToDispatch(
   notificationActions
 );
 
-// export const boundProductActions = bindActionsToDispatch(store.dispatch, {
-//   ...productActions,
-//   fetchAllProductsThunk,
-// });
-
-// export const boundCartActions = bindActionsToDispatch(
-//   store.dispatch,
-//   cartActions
-// );
-
-// export const boundSearchActions = bindActionsToDispatch(
-//   store.dispatch,
-//   searchActions
-// );
-
-// export const boundLoginActions = bindActionsToDispatch(
-//   store.dispatch,
-//   loginActions
-// );
+export const boundChatActions = bindActionsToDispatch(
+  store.dispatch,
+  chatActions
+);

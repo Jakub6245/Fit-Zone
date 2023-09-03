@@ -11,6 +11,7 @@ export const StateProvider = ({ children }: { children: JSX.Element }) => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
+        console.log(user);
         const userData = (await getUserFromFirebase(
           user.uid
         )) as UserObjectType;

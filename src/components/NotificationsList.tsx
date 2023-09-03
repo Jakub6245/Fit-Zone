@@ -1,12 +1,14 @@
-import { useSelector } from "react-redux";
 import Notification from "./Notification";
-import { StateType } from "@/types/StateType";
+
 import { useFetchUsersNotificationsQuery } from "@/services/notifications";
+import { useUser } from "@/store/store";
 
 const NotificationsList = () => {
-  const user = useSelector((state: StateType) => state.userReducer.user);
-
-  const { data, isFetching } = useFetchUsersNotificationsQuery(user.id);
+  const user = useUser();
+  console.log(user);
+  const { data, isFetching } = useFetchUsersNotificationsQuery(
+    user.notificationListId
+  );
 
   if (isFetching) {
     return <div>...Loading</div>;

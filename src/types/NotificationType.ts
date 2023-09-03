@@ -6,4 +6,5 @@ export type NotificationType = {
 
 export type NotificationObjectType = {
   notifications: NotificationType[];
+  userId: string;
 };

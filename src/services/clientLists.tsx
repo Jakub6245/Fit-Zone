@@ -25,11 +25,11 @@ export const clientList = createApi({
     }),
     addClientToClientList: builder.mutation<
       string,
-      { userId: string; clientId: string }
+      { clientListId: string; clientId: string }
     >({
-      async queryFn({ userId, clientId }) {
+      async queryFn({ clientListId, clientId }) {
         try {
-          await addClientToListToDB(userId, clientId);
+          await addClientToListToDB(clientListId, clientId);
 
           return { data: "ok" };
         } catch (error) {

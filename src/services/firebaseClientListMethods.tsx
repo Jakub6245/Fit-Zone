@@ -3,10 +3,11 @@ import { setDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 
 import { ClientListType } from "@/types/ClientListType";
 
-export const addUsersClientListToDB = async (userId: string) => {
+export const addUsersClientListToDB = () => {
   try {
-    const clientListRef = doc(dbClientListCollection, userId);
-    await setDoc(clientListRef, { clientList: [] });
+    const clientListRef = doc(dbClientListCollection);
+    setDoc(clientListRef, { clientList: [] });
+    return clientListRef.id;
   } catch (error) {
     console.error(error);
   }
@@ -17,11 +18,14 @@ export const deleteClientFromListFromDB = async (
   clientId: string
 ) => {
   try {
-    const { clientList } = (await getClientList(userId)) as ClientListType;
-    const indexToRemove = clientList.findIndex((client) => client === clientId);
-    clientList.splice(indexToRemove, 1);
+    const clientList = (await getClientList(userId)) as ClientListType;
+    const indexToRemove = clientList.clientList.findIndex(
+      (client) => client === clientId
+    );
+    clientList.clientList.splice(indexToRemove, 1);
     await updateUsersClientList(userId, {
-      clientList: clientList,
+      ...clientList,
+      clientList: clientList.clientList,
     });
   } catch (error) {
     console.error(error);
@@ -29,14 +33,14 @@ export const deleteClientFromListFromDB = async (
 };
 
 export const addClientToListToDB = async (
-  userId: string,
+  clientListId: string,
   newClient: string
 ) => {
   try {
-    const clientList = (await getClientList(userId)) as ClientListType;
+    const clientList = (await getClientList(clientListId)) as ClientListType;
 
     console.log(clientList);
-    await updateUsersClientList(userId, {
+    await updateUsersClientList(clientListId, {
       ...clientList,
       clientList: [...clientList.clientList, newClient],
     });
@@ -49,15 +53,15 @@ export const updateUsersClientList = async (
   userId: string,
   clientList: ClientListType
 ) => {
-  await updateDoc(doc(db, "clientList", userId), {
+  await updateDoc(doc(dbClientListCollection, userId), {
     ...clientList,
   });
 };
 
-export const getClientList = async (userId: string) => {
+export const getClientList = async (clientListId: string) => {
   try {
-    // const isInDB = await isUserInDB(uid);
-    const response = await getDoc(doc(db, "clientList", userId));
+    // const isInDB = await isclientListInDB(uid);
+    const response = await getDoc(doc(dbClientListCollection, clientListId));
 
     const data = response.data();
 

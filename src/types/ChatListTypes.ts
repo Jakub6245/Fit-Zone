@@ -1,7 +1,6 @@
 import { MessageType } from "./MessageType";
 
-export type ChatListType = {
-  chats: ChatType[];
+export type ChatType = {
+  users: string[];
+  messages: MessageType[];
 };
-
-export type ChatType = { withWho: string; messages: MessageType[] };

@@ -1,21 +1,18 @@
-import { auth, dbUsersCollection } from "@/config/firebaseConfig";
+import { auth } from "@/config/firebaseConfig";
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { addUser } from "@/services/firebaseUserMethods";
 import CheckboxGroup from "@/components/CheckboxInputs";
 import { accountsTypes } from "@/config/accountsTypes";
 import { UserType } from "@/types/UserType";
-import { Formik, Field, ErrorMessage, useFormik } from "formik";
+import { useFormik } from "formik";
 import { validationSchema } from "@/config/registerValidationSchema";
-import { InputsType } from "@/types/InputsType";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { createToastNotification } from "@/helpers/createToastNotification";
 
 import { addUsersNotificationListToDB } from "@/services/firebaseNotificationMethods";
 import { addUsersClientListToDB } from "@/services/firebaseClientListMethods";
-import { addUsersTrainerToDB } from "@/services/firebaseTrainerMethods";
-import { addChatObjectToDB } from "@/services/firebaseChatMethods";
 
 const createUserWithEmailAndPasswordPromise = (
   email: string,
@@ -64,20 +61,18 @@ export default function Register() {
   };
 
   const onSuccess = (cred: UserCredential) => {
+    const notificationListId = addUsersNotificationListToDB();
+    const clientListId = addUsersClientListToDB();
+    if (!notificationListId || !clientListId) return;
     addUser({
       id: cred.user.uid,
       ...formik.values,
       userType,
+      notificationListId,
+      clientListId,
+      chatList: [],
     });
-    addUsersNotificationListToDB(cred.user.uid);
     createToastNotification("Your account has been created");
-    if (userType === "trainer") {
-      addChatObjectToDB(cred.user.uid);
-      addUsersClientListToDB(cred.user.uid);
-    }
-    if (userType === "client") {
-      addUsersTrainerToDB(cred.user.uid);
-    }
   };
 
   const onError = () => {
