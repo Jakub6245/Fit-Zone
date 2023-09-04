@@ -1,15 +1,13 @@
-import { useSelector } from "react-redux";
-
-import { StateType } from "@/types/StateType";
 import { useFetchUsersClientListQuery } from "@/services/clientLists";
 import Client from "./Client";
 import { useFetchUsersDataQuery } from "@/services/users";
 import { searchForUsersById } from "@/helpers/searchForUsers";
-import { useUser } from "@/store/store";
+import { useUser, useChatWithUser } from "@/store/store";
+import ChatWindow from "./ChatWindow";
 
 const ClientList = () => {
   const user = useUser();
-
+  const chatWithUserId = useChatWithUser();
   const clientsId = useFetchUsersClientListQuery(user.clientListId);
   const users = useFetchUsersDataQuery();
 
@@ -26,6 +24,8 @@ const ClientList = () => {
         return <Client key={i} clientData={el} />;
       })}
       {clients.length === 0 && <div>You do not have any clients</div>}
+
+      {chatWithUserId && <ChatWindow />}
     </div>
   );
 };
