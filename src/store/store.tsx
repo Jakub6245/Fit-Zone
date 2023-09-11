@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { reducer as userReducer } from "@/slices/user";
-import { reducer as notificationReducer } from "@/slices/notification";
-import { reducer as chatReducer } from "@/slices/chat";
+import { reducer as userReducer } from "@/shared/slices/user";
+import { reducer as notificationReducer } from "@/features/notifications/slices/notification";
+import { reducer as chatReducer } from "@/features/chat/slices/chat";
 import { firestoreApi } from "@/services/users";
-import { notifications } from "@/services/notifications";
-import { clientList } from "@/services/clientLists";
-import { chats } from "@/services/chats";
+import { notifications } from "@/features/notifications/services/notifications";
+import { clientList } from "@/features/ClientList/services/clientLists";
+import { chats } from "@/features/chat/services/chats";
 import { useSelector } from "react-redux";
-import { StateType } from "@/types/StateType";
+import { StateType } from "@/shared/types/StateType";
 
 const store = configureStore({
   reducer: {

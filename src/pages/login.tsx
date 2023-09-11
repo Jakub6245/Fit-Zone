@@ -5,8 +5,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
 import { validationSchema } from "@/config/loginValidationSchema";
-import { createToastNotification } from "@/helpers/createToastNotification";
-
+import { createToastNotification } from "@/shared/helpers/createToastNotification";
+import PasswordInput from "@/features/register/components/PasswordInput";
+import { Text, Input, Button } from "@chakra-ui/react";
 
 const initialValues = { email: "", password: "" };
 
@@ -37,28 +38,32 @@ export default function Login() {
 
   return (
     <div>
-      <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit} style={{ width: "20%" }}>
         <div>
           <label>Email:</label>
-          <input
+          <Input
             name="email"
             value={formik.values.email}
             type="email"
             onChange={formik.handleChange}
           />
-          {formik.errors.email}
+          <Text fontSize="md" color="red">
+            {formik.errors.email}
+          </Text>
         </div>
         <div>
           <label>Password:</label>
-          <input
-            name="password"
+          <PasswordInput
             value={formik.values.password}
-            type="password"
             onChange={formik.handleChange}
           />
-          {formik.errors.password}
+          <Text fontSize="md" color="red">
+            {formik.errors.password}
+          </Text>
         </div>
-        <input type="submit" />
+        <Button colorScheme="green" size="lg" type="submit">
+          Submit
+        </Button>
       </form>
       <ToastContainer />
     </div>

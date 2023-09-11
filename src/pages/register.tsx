@@ -2,17 +2,19 @@ import { auth } from "@/config/firebaseConfig";
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword, UserCredential } from "firebase/auth";
 import { addUser } from "@/services/firebaseUserMethods";
-import CheckboxGroup from "@/components/CheckboxInputs";
+import CheckBoxGroup from "@/features/register/components/CheckboxInputs";
 import { accountsTypes } from "@/config/accountsTypes";
-import { UserType } from "@/types/UserType";
 import { useFormik } from "formik";
 import { validationSchema } from "@/config/registerValidationSchema";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { createToastNotification } from "@/helpers/createToastNotification";
 
-import { addUsersNotificationListToDB } from "@/services/firebaseNotificationMethods";
-import { addUsersClientListToDB } from "@/services/firebaseClientListMethods";
+import "react-toastify/dist/ReactToastify.css";
+import { Button, Input, Text } from "@chakra-ui/react";
+
+import { addUsersNotificationListToDB } from "@/features/notifications/services/firebaseNotificationMethods";
+import { addUsersClientListToDB } from "@/features/ClientList/services/firebaseClientListMethods";
+import PasswordInput from "@/features/register/components/PasswordInput";
+import { createToastNotification } from "@/shared/helpers/createToastNotification";
+import { UserType } from "@/shared/types/UserType";
 
 const createUserWithEmailAndPasswordPromise = (
   email: string,
@@ -80,58 +82,68 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <form onSubmit={formik.handleSubmit}>
-        <div>
-          <label htmlFor="firstName">FirstName:</label>
-          <input
-            name="firstName"
-            type="text"
-            value={formik.values.firstName}
-            onChange={formik.handleChange}
-          />
+    <form onSubmit={formik.handleSubmit} style={{ width: "20%" }}>
+      <div>
+        <label htmlFor="firstName">FirstName:</label>
+        <Input
+          name="firstName"
+          type="text"
+          value={formik.values.firstName}
+          onChange={formik.handleChange}
+        />
+        <br />
+        <Text fontSize="md" color="red">
           {formik.errors.firstName}
-        </div>
-        <div>
-          <label htmlFor="lastName">LastName:</label>
-          <input
-            name="lastName"
-            type="text"
-            value={formik.values.lastName}
-            onChange={formik.handleChange}
-          />
+        </Text>
+      </div>
+      <div>
+        <label htmlFor="lastName">LastName:</label>
+        <Input
+          name="lastName"
+          type="text"
+          value={formik.values.lastName}
+          onChange={formik.handleChange}
+        />
+        <br />
+        <Text fontSize="md" color="red">
           {formik.errors.lastName}
-        </div>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            name="email"
-            type="email"
-            value={formik.values.email}
-            onChange={formik.handleChange}
-          />
+        </Text>
+      </div>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <Input
+          name="email"
+          type="email"
+          value={formik.values.email}
+          onChange={formik.handleChange}
+        />
+        <br />
+        <Text fontSize="md" color="red">
           {formik.errors.email}
-        </div>
-        <div>
-          <label htmlFor="password">Password:</label>
-          <input
-            name="password"
-            type="password"
-            value={formik.values.password}
-            onChange={formik.handleChange}
-          />
+        </Text>
+      </div>
+      <div>
+        <label htmlFor="password">Password:</label>
+        <PasswordInput
+          value={formik.values.password}
+          onChange={formik.handleChange}
+        />
+
+        <Text fontSize="md" color="red">
           {formik.errors.password}
-        </div>
-        <div>
-          <label>I am</label>
-          <CheckboxGroup
-            options={accountsTypes}
-            onChange={handleCheckboxChange}
-          />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      <ToastContainer />
-    </div>
+        </Text>
+      </div>
+      <div>
+        <label>I am</label>
+        <CheckBoxGroup
+          options={accountsTypes}
+          onChange={handleCheckboxChange}
+        />
+        <br />
+      </div>
+      <Button colorScheme="green" size="lg" type="submit">
+        Submit
+      </Button>
+    </form>
   );
 }
