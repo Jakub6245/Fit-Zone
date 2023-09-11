@@ -4,14 +4,12 @@ import {
   getDocs,
   updateDoc,
   getDoc,
-  collection,
   query,
   where,
 } from "firebase/firestore";
 import { dbUsersCollection, db } from "@/config/firebaseConfig";
-import { UserType, UserObjectType } from "@/types/UserType";
-import { uuid } from "uuidv4";
 
+import { UserObjectType } from "@/shared/types/UserType";
 export const getAllUsers = async () => {
   try {
     const response = await getDocs(dbUsersCollection);
@@ -24,21 +22,6 @@ export const getAllUsers = async () => {
     return [];
   }
 };
-
-// export const getGivenUsers = async (userType: UserType) => {
-//   try {
-//     const response = await getAllUsers();
-
-//     if (userType === "client") {
-//       return response.filter((user) => !user.isTrainer);
-//     }
-
-//     return response.filter((user) => user.isTrainer);
-//   } catch (err) {
-//     console.error(err);
-//     return [];
-//   }
-// };
 
 export const updateUser = async (uid: string, userData: UserObjectType) => {
   await updateDoc(doc(db, "users", uid), { ...userData });
@@ -93,11 +76,9 @@ export const getUserFromFirebase = async (uid: string) => {
     const userObject = await getDoc(doc(dbUsersCollection, userObjectId));
 
     const userData = userObject.data();
-    
+
     return userData;
   } catch (err) {
     console.error(err);
   }
 };
-
-

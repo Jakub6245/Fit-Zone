@@ -1,4 +1,4 @@
-import { TrainerCard } from "@/components/TrainerCard";
+import { TrainerCard } from "@/features/searchfortrainer/components/TrainerCard";
 
 import { useFetchUsersDataQuery } from "@/services/users";
 

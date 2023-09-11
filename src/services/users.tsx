@@ -1,7 +1,7 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { UserObjectType } from "@/types/UserType";
 import { getAllUsers, getUserFromFirebase } from "./firebaseUserMethods";
+import { UserObjectType } from "@/shared/types/UserType";
 
 export const firestoreApi = createApi({
   reducerPath: "users",
