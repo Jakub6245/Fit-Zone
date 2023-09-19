@@ -8,6 +8,8 @@ export type UserObjectType = {
   notificationListId: string;
   clientListId: string;
   chatList: string[];
+  dietObjectId: string;
+  dietDayObjectId: string;
 };
 
 export type UserType = "trainer" | "client";

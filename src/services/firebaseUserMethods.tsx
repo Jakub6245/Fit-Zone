@@ -23,8 +23,10 @@ export const getAllUsers = async () => {
   }
 };
 
-export const updateUser = async (uid: string, userData: UserObjectType) => {
-  await updateDoc(doc(db, "users", uid), { ...userData });
+export const updateUser = async (userId: string, userData: UserObjectType) => {
+  const userObjectId = await getUserIdFromFirebase(userId);
+  if (!userObjectId) return;
+  await updateDoc(doc(db, "users", userObjectId), { ...userData });
 };
 
 export const addUser = async (data: UserObjectType) => {
@@ -42,10 +44,10 @@ export const addChatIdToUserChatList = async (
 ) => {
   try {
     const userDoc = (await getUserFromFirebase(userId)) as UserObjectType;
-    const userObjectId = await getUserIdFromFirebase(userId);
-    if (!userDoc || !userObjectId) return;
+
+    if (!userDoc) return;
     console.log(userDoc);
-    await updateUser(userObjectId, {
+    await updateUser(userDoc.id, {
       ...userDoc,
       chatList: [...userDoc.chatList, chatId],
     });

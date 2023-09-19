@@ -1,0 +1,17 @@
+.diet__during__day {
+  &__container {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    font-weight: bold;
+    background-color: green;
+  }
+
+  &__label {
+    font-size: 1.8rem;
+    padding: 0.2rem 0.8rem;
+    color: white;
+  }
+}

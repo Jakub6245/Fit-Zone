@@ -7,6 +7,9 @@ import { firestoreApi } from "@/services/users";
 import { notifications } from "@/features/notifications/services/notifications";
 import { clientList } from "@/features/ClientList/services/clientLists";
 import { chats } from "@/features/chat/services/chats";
+import { dietObject } from "@/features/diet/services/diets";
+import { products } from "@/features/product/services/products";
+import { dietDay } from "@/features/dietDuringDay/services/dietDay";
 import { useSelector } from "react-redux";
 import { StateType } from "@/shared/types/StateType";
 
@@ -19,6 +22,9 @@ const store = configureStore({
     [notifications.reducerPath]: notifications.reducer,
     [clientList.reducerPath]: clientList.reducer,
     [chats.reducerPath]: chats.reducer,
+    [dietObject.reducerPath]: dietObject.reducer,
+    [products.reducerPath]: products.reducer,
+    [dietDay.reducerPath]: dietDay.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat([
@@ -26,6 +32,9 @@ const store = configureStore({
       notifications.middleware,
       clientList.middleware,
       chats.middleware,
+      dietObject.middleware,
+      products.middleware,
+      dietDay.middleware,
     ]),
 });
 

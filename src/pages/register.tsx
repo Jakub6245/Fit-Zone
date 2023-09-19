@@ -15,6 +15,7 @@ import { addUsersClientListToDB } from "@/features/ClientList/services/firebaseC
 import PasswordInput from "@/features/register/components/PasswordInput";
 import { createToastNotification } from "@/shared/helpers/createToastNotification";
 import { UserType } from "@/shared/types/UserType";
+import { addDietDayObjectToDB } from "@/features/dietDuringDay/services/firebaseDietDayMethods";
 
 const createUserWithEmailAndPasswordPromise = (
   email: string,
@@ -65,6 +66,7 @@ export default function Register() {
   const onSuccess = (cred: UserCredential) => {
     const notificationListId = addUsersNotificationListToDB();
     const clientListId = addUsersClientListToDB();
+
     if (!notificationListId || !clientListId) return;
     addUser({
       id: cred.user.uid,
@@ -73,6 +75,8 @@ export default function Register() {
       notificationListId,
       clientListId,
       chatList: [],
+      dietObjectId: "",
+      dietDayObjectId: "",
     });
     createToastNotification("Your account has been created");
   };

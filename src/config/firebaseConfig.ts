@@ -24,3 +24,6 @@ export const dbNotificationCollection = collection(db, "notification");
 export const dbTrainerCollection = collection(db, "trainer");
 export const dbClientListCollection = collection(db, "clientList");
 export const dbChatCollection = collection(db, "chat");
+export const dbDietCollection = collection(db, "diet");
+export const dbProductsCollection = collection(db, "products");
+export const dbDietDayCollection = collection(db, "dietDay");
