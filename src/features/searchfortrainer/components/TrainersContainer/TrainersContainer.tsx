@@ -1,5 +1,5 @@
-import { TrainerCard } from "@/features/searchForTrainer/components/TrainerCard/TrainerCard";
-import { filterUsers } from "@/features/searchForTrainer/helpers/filterUsers";
+import { TrainerCard } from "../TrainerCard/TrainerCard";
+import { filterUsers } from "../../helpers/filterUsers";
 
 import { useFetchUsersDataQuery } from "@/services/users";
 
