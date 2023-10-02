@@ -37,7 +37,7 @@
     "yup": "^1.2.0"
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   },
   "devDependencies": {
     "@types/node-schedule": "^2.1.1"
