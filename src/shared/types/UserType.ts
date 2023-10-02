@@ -10,6 +10,9 @@ export type UserObjectType = {
   chatList: string[];
   dietObjectId: string;
   dietDayObjectId: string;
+  description: string;
+  phoneNumber: string;
+  savedDietDaysObjectId: string;
 };
 
 export type UserType = "trainer" | "client";

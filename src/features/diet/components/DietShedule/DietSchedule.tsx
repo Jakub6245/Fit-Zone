@@ -10,27 +10,26 @@ export const DietShedule = () => {
   const user = useUser();
   const dietObject = useFetchUsersDietObjectQuery(user.dietObjectId);
   const dietDuringDay = useFetchUsersDietDayQuery(user.dietDayObjectId);
-  if (dietObject.isFetching || dietDuringDay.isFetching)
-    return <div>...Loading</div>;
+  console.log(dietDuringDay.data, dietObject.data);
   if (!dietObject.data || !dietDuringDay.data) return;
   return (
     <div className={styles.diet__shedule__container}>
       <p className={styles.diet__shedule__label}>
         Calories: {calculateSum(dietDuringDay.data.dietDay, "calories")}/
-        {dietObject.data.dietObject.calories}
+        {dietObject.data.calories}
       </p>
       <p className={styles.diet__shedule__label}>
         Protein: {calculateSum(dietDuringDay.data.dietDay, "protein")}/
-        {dietObject.data.dietObject.protein}
+        {dietObject.data.protein}
       </p>
       <p className={styles.diet__shedule__label}>
         Fats: {calculateSum(dietDuringDay.data.dietDay, "fats")}/
-        {dietObject.data.dietObject.fats}
+        {dietObject.data.fats}
       </p>
       <p className={styles.diet__shedule__label}>
         Carbohydrates:{" "}
         {calculateSum(dietDuringDay.data.dietDay, "carbohydrates")}/
-        {dietObject.data.dietObject.carbohydrates}
+        {dietObject.data.carbohydrates}
       </p>
     </div>
   );

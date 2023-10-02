@@ -2,10 +2,10 @@ import { dbDietCollection } from "@/config/firebaseConfig";
 import { setDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { DietObjectT } from "../types/dietObject";
 
-export const addDietObjectToDB = (dietObject: DietObjectT["dietObject"]) => {
+export const addDietObjectToDB = (dietObject: DietObjectT) => {
   try {
     const dietObjectRef = doc(dbDietCollection);
-    setDoc(dietObjectRef, { dietObject });
+    setDoc(dietObjectRef, dietObject);
     return dietObjectRef.id;
   } catch (error) {
     console.error(error);

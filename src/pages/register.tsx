@@ -5,7 +5,7 @@ import { addUser } from "@/services/firebaseUserMethods";
 import CheckBoxGroup from "@/features/register/components/CheckboxInputs";
 import { accountsTypes } from "@/config/accountsTypes";
 import { useFormik } from "formik";
-import { validationSchema } from "@/config/registerValidationSchema";
+import { validationSchema } from "@/config/validation/registerValidationSchema";
 
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Input, Text } from "@chakra-ui/react";
@@ -77,6 +77,9 @@ export default function Register() {
       chatList: [],
       dietObjectId: "",
       dietDayObjectId: "",
+      description: "",
+      phoneNumber: "",
+      savedDietDaysObjectId: "",
     });
     createToastNotification("Your account has been created");
   };

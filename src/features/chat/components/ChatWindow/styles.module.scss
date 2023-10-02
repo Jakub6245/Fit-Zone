@@ -1,0 +1,48 @@
+.chat__window {
+  &__container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 4rem;
+    border-radius: 10px 10px 0 0;
+    min-width: 15%;
+
+    background-color: white;
+    font-weight: bold;
+    font-size: 1.6rem;
+  }
+
+  &__user__name {
+    background-color: #074b07;
+    color: white;
+    font-size: 2rem;
+    padding: 1rem 2rem;
+    border-radius: 10px 10px 0 0;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__button {
+    font-weight: bold;
+    background-color: #074b07;
+    color: white;
+    font-size: 1.6rem;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+  }
+
+  &__input {
+    border: 2px solid #074b07;
+    border-radius: 10px;
+    padding: 0.2rem 0.8rem;
+    &__container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+    }
+  }
+}

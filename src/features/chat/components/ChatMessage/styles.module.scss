@@ -1,0 +1,22 @@
+.chat__message {
+  &__container {
+    padding: 0.8rem 1.5rem;
+
+    overflow-wrap: break-word;
+    max-width: 80%;
+    margin-bottom: 0.5rem;
+    border-radius: 20px;
+  }
+
+  &__send {
+    color: white;
+    background-color: #074b07;
+    align-self: flex-end;
+  }
+
+  &__achieved {
+    background-color: lightgray;
+    color: #074b07;
+    align-self: flex-start;
+  }
+}

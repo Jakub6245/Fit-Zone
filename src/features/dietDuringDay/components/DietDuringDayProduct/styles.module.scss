@@ -4,14 +4,41 @@
     gap: 2rem;
     align-items: center;
     justify-content: flex-start;
-    width: 100%;
+
     font-weight: bold;
-    background-color: green;
+    background-color: #074b07;
+    padding: 1.4rem 2.8rem;
+
+    &:first-child {
+      border-radius: 10px 10px 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 0 10px 10px;
+    }
+
+    &:not(:last-child) {
+      border-bottom: 2px solid white;
+    }
   }
 
   &__label {
-    font-size: 1.8rem;
+    font-size: 2rem;
     padding: 0.2rem 0.8rem;
     color: white;
+  }
+
+  &__button {
+    background-color: red;
+    color: white;
+    font-size: 1.6rem;
+    font-weight: bold;
+    padding: 0.4rem 1.2rem;
+    border-radius: 10px;
+    transition: 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }

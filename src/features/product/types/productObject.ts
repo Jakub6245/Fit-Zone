@@ -41,3 +41,21 @@ export type DietDayProductT = {
   unit: string;
   id: string;
 };
+
+export type SavedDietDaysObjectType = {
+  savedDietDays: SavedDietDaysType[];
+};
+
+export type SavedDietDaysType = {
+  dietDay: {
+    name: string;
+    calories: number;
+    protein: number;
+    carbohydrates: number;
+    fats: number;
+    quantity: string;
+    unit: string;
+    id: string;
+  }[];
+  date: string;
+};

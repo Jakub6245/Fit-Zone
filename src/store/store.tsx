@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-
+import { reducer as dietDayReducer } from "@/features/diet/slices/dietDay";
 import { reducer as userReducer } from "@/shared/slices/user";
 import { reducer as notificationReducer } from "@/features/notifications/slices/notification";
 import { reducer as chatReducer } from "@/features/chat/slices/chat";
@@ -16,6 +16,7 @@ import { StateType } from "@/shared/types/StateType";
 const store = configureStore({
   reducer: {
     userReducer,
+    dietDayReducer,
     notificationReducer,
     chatReducer,
     [firestoreApi.reducerPath]: firestoreApi.reducer,
@@ -43,5 +44,7 @@ export const useUser = () =>
 export const useNotifications = () =>
   useSelector((state: StateType) => state.notificationReducer.notifications);
 export const useChatWithUser = () =>
-  useSelector((state: StateType) => state.chatReducer.chatWithUser);
+  useSelector((state: StateType) => state.chatReducer);
+export const useDietDayDate = () =>
+  useSelector((state: StateType) => state.dietDayReducer.date);
 export default store;

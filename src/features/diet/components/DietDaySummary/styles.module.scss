@@ -1,0 +1,21 @@
+.diet__day__summary {
+  &__container {
+    width: 60%;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: space-around;
+
+    font-weight: bold;
+    background-color: #074b07;
+    padding: 1.4rem 2.8rem;
+  }
+
+  &__text {
+    font-size: 2rem;
+    padding: 0.2rem 0.8rem;
+    color: white;
+  }
+}

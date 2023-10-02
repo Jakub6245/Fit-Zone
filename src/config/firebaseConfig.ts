@@ -27,3 +27,4 @@ export const dbChatCollection = collection(db, "chat");
 export const dbDietCollection = collection(db, "diet");
 export const dbProductsCollection = collection(db, "products");
 export const dbDietDayCollection = collection(db, "dietDay");
+export const dbSavedDietDaysCollection = collection(db, "savedDietDays");
