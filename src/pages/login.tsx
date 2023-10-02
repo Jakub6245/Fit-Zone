@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useFormik } from "formik";
-import { validationSchema } from "@/config/loginValidationSchema";
+import { validationSchema } from "@/config/validation/loginValidationSchema";
 import { createToastNotification } from "@/shared/helpers/createToastNotification";
 import PasswordInput from "@/features/register/components/PasswordInput";
 import { Text, Input, Button } from "@chakra-ui/react";

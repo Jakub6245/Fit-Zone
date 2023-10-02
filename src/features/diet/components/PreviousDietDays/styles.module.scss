@@ -1,0 +1,31 @@
+.previous__days {
+  &__container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  &__items {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: white;
+    background-color: #074b07;
+  }
+
+  &__button {
+    font-weight: bold;
+    font-size: 1.8rem;
+    padding: 1rem 2rem;
+    color: white;
+    background-color: #074b07;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+}

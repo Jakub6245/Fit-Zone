@@ -1,0 +1,11 @@
+.trainers {
+  &__container {
+    width: 80%;
+    margin: 0 auto;
+    row-gap: 2rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: center;
+    align-items: center;
+  }
+}

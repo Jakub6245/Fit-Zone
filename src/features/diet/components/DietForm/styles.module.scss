@@ -1,0 +1,35 @@
+.diet__form {
+  width: 30%;
+  margin: 2rem auto;
+  font-weight: bold;
+  font-size: 1.8rem;
+
+  &__input__container {
+    margin-bottom: 2rem;
+  }
+
+  &__button {
+    font-weight: bold;
+    color: #074b07;
+    font-size: 1.8rem;
+    background-color: white;
+    padding: 1rem 2rem;
+    border-radius: 20px;
+    transition: 0.4s;
+
+    &:hover {
+      background-color: #074b07;
+      color: white;
+    }
+
+    &__container {
+      display: flex;
+      justify-content: right;
+    }
+  }
+
+  &__header {
+    font-size: 3rem;
+    font-weight: bold;
+  }
+}

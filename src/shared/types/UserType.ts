@@ -8,6 +8,11 @@ export type UserObjectType = {
   notificationListId: string;
   clientListId: string;
   chatList: string[];
+  dietObjectId: string;
+  dietDayObjectId: string;
+  description: string;
+  phoneNumber: string;
+  savedDietDaysObjectId: string;
 };
 
 export type UserType = "trainer" | "client";

@@ -5,6 +5,7 @@ import {
 import { dbNotificationCollection } from "@/config/firebaseConfig";
 import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { uuid } from "uuidv4";
+import { createToastNotification } from "@/shared/helpers/createToastNotification";
 
 export const addUsersNotificationListToDB = () => {
   try {
@@ -46,12 +47,18 @@ export const addNotificationToListToDB = async (
     const notificationList = (await getNotificationList(
       userId
     )) as NotificationObjectType;
+    const checkIfNotificationIsAlreadyOnList =
+      notificationList.notifications.some(
+        (el) => el.from === newNotification.from
+      );
+    if (checkIfNotificationIsAlreadyOnList) {
+      return createToastNotification(
+        "You have already sent a request for cooperation"
+      );
+    }
+    notificationList.notifications.push(newNotification);
 
-    console.log(notificationList);
-    await updateNotificationList(userId, {
-      ...notificationList,
-      notifications: [...notificationList.notifications, newNotification],
-    });
+    await updateNotificationList(userId, notificationList);
   } catch (error) {
     console.error(error);
   }

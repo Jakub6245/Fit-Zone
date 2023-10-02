@@ -5,7 +5,7 @@ import { addUser } from "@/services/firebaseUserMethods";
 import CheckBoxGroup from "@/features/register/components/CheckboxInputs";
 import { accountsTypes } from "@/config/accountsTypes";
 import { useFormik } from "formik";
-import { validationSchema } from "@/config/registerValidationSchema";
+import { validationSchema } from "@/config/validation/registerValidationSchema";
 
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Input, Text } from "@chakra-ui/react";
@@ -15,6 +15,7 @@ import { addUsersClientListToDB } from "@/features/ClientList/services/firebaseC
 import PasswordInput from "@/features/register/components/PasswordInput";
 import { createToastNotification } from "@/shared/helpers/createToastNotification";
 import { UserType } from "@/shared/types/UserType";
+import { addDietDayObjectToDB } from "@/features/dietDuringDay/services/firebaseDietDayMethods";
 
 const createUserWithEmailAndPasswordPromise = (
   email: string,
@@ -65,6 +66,7 @@ export default function Register() {
   const onSuccess = (cred: UserCredential) => {
     const notificationListId = addUsersNotificationListToDB();
     const clientListId = addUsersClientListToDB();
+
     if (!notificationListId || !clientListId) return;
     addUser({
       id: cred.user.uid,
@@ -73,6 +75,11 @@ export default function Register() {
       notificationListId,
       clientListId,
       chatList: [],
+      dietObjectId: "",
+      dietDayObjectId: "",
+      description: "",
+      phoneNumber: "",
+      savedDietDaysObjectId: "",
     });
     createToastNotification("Your account has been created");
   };

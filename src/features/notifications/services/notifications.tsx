@@ -1,7 +1,11 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { NotificationObjectType } from "@/shared/types/NotificationType";
 import {
+  NotificationObjectType,
+  NotificationType,
+} from "@/shared/types/NotificationType";
+import {
+  addNotificationToListToDB,
   deleteNotificationFromListFromDB,
   getNotificationList,
 } from "./firebaseNotificationMethods";
@@ -38,10 +42,26 @@ export const notifications = createApi({
       },
       invalidatesTags: ["Notifications"],
     }),
+    addNotificationToList: builder.mutation<
+      string,
+      { userId: string; newNotification: NotificationType }
+    >({
+      async queryFn({ userId, newNotification }) {
+        try {
+          await addNotificationToListToDB(userId, newNotification);
+
+          return { data: "ok" };
+        } catch (error) {
+          return { error: error };
+        }
+      },
+      invalidatesTags: ["Notifications"],
+    }),
   }),
 });
 
 export const {
   useFetchUsersNotificationsQuery,
   useDeleteNotificationFromListMutation,
+  useAddNotificationToListMutation,
 } = notifications;

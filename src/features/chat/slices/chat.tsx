@@ -1,7 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const initialState: { chatWithUser: string | null } = {
+const initialState: { chatWithUser: string | null; isChatOopen: boolean } = {
   chatWithUser: null,
+  isChatOopen: false,
 };
 
 const chatSlice = createSlice({
@@ -13,6 +14,9 @@ const chatSlice = createSlice({
       action: PayloadAction<{ chatWithUser: string | null }>
     ) => {
       state.chatWithUser = action.payload.chatWithUser;
+    },
+    setChatOpen: (state, action: PayloadAction<{ isOpen: boolean }>) => {
+      state.isChatOopen = action.payload.isOpen;
     },
   },
 });

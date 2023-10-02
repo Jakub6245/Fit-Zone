@@ -1,0 +1,10 @@
+.select__input {
+  background-color: white;
+  width: 100%;
+  padding: 0.5rem;
+  &__option {
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+}
