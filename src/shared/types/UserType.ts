@@ -13,6 +13,8 @@ export type UserObjectType = {
   description: string;
   phoneNumber: string;
   savedDietDaysObjectId: string;
+  imageId: string;
+  imageUrl: string;
 };
 
 export type UserType = "trainer" | "client";
