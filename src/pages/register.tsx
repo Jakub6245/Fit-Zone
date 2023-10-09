@@ -16,6 +16,7 @@ import PasswordInput from "@/features/register/components/PasswordInput";
 import { createToastNotification } from "@/shared/helpers/createToastNotification";
 import { UserType } from "@/shared/types/UserType";
 import { addDietDayObjectToDB } from "@/features/dietDuringDay/services/firebaseDietDayMethods";
+import { uuid } from "uuidv4";
 
 const createUserWithEmailAndPasswordPromise = (
   email: string,
@@ -80,6 +81,8 @@ export default function Register() {
       description: "",
       phoneNumber: "",
       savedDietDaysObjectId: "",
+      imageId: uuid(),
+      imageUrl: "",
     });
     createToastNotification("Your account has been created");
   };

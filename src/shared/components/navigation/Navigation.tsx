@@ -68,6 +68,14 @@ const Navigation = () => {
             Search for trainer
           </button>
         </div>
+        <div>
+          <button
+            className={styles.navigation__button}
+            onClick={() => router.push("/profile")}
+          >
+            Profile
+          </button>
+        </div>
       </ul>
     </div>
   );

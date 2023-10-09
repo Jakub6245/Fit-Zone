@@ -50,8 +50,10 @@ export const TrainerModal = ({
         <ModalContent className={styles.trainer__modal__content}>
           <Image
             className={styles.trainer__modal__image}
-            src={defaultImage}
+            src={data.imageUrl ? data.imageUrl : defaultImage}
             alt="default-image"
+            width={500}
+            height={500}
           />
 
           <ModalCloseButton />

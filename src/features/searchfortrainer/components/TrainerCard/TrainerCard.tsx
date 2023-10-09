@@ -22,8 +22,10 @@ export const TrainerCard = ({
     <div className={styles.trainer__card__container} onClick={onOpen}>
       <Image
         className={styles.trainer__card__image}
-        src={defaultImage}
+        src={trainerData.imageUrl ? trainerData.imageUrl : defaultImage}
         alt="default-image"
+        width={500}
+        height={500}
       />
       <div className={styles.trainer__card__info__container}>
         <h1 className={styles.trainer__card__name}>

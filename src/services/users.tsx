@@ -1,6 +1,10 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { getAllUsers, getUserFromFirebase } from "./firebaseUserMethods";
+import {
+  getAllUsers,
+  getUserFromFirebase,
+  updateUser,
+} from "./firebaseUserMethods";
 import { UserObjectType } from "@/shared/types/UserType";
 
 export const firestoreApi = createApi({
@@ -32,8 +36,25 @@ export const firestoreApi = createApi({
       },
       providesTags: ["Users"],
     }),
+    updateUserData: builder.mutation<
+      string,
+      { userId: string; userData: UserObjectType }
+    >({
+      async queryFn({ userId, userData }) {
+        try {
+          await updateUser(userId, userData);
+          return { data: "ok" };
+        } catch (error) {
+          return { error: error };
+        }
+      },
+      invalidatesTags: ["Users"],
+    }),
   }),
 });
 
-export const { useFetchUsersDataQuery, useFetchSingleUserDataQuery } =
-  firestoreApi;
+export const {
+  useFetchUsersDataQuery,
+  useFetchSingleUserDataQuery,
+  useUpdateUserDataMutation,
+} = firestoreApi;
