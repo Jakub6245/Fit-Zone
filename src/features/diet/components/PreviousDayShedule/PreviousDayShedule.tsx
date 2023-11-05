@@ -1,4 +1,4 @@
-import { DietDayShedule } from "@/features/dietDuringDay/components/DietDuringDayShedule/DietDuringDayShedule";
+import { DietDayShedule } from "@/features/dietDuringDay";
 import { useFetchSingleSavedDietDayQuery } from "@/features/dietDuringDay/services/dietDay";
 import { useDietDayDate, useUser } from "@/store/store";
 import { PreviousDietDays } from "../PreviousDietDays/PreviousDietDays";

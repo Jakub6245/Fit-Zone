@@ -1,0 +1,39 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.training__day {
+  &__container {
+    background-color: $darkgreen-color;
+    padding: $small-padding;
+    border-radius: $small-radius;
+    margin-bottom: $margin-medium;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+  &__header {
+    font-size: $small-heading;
+    font-weight: $big-weight;
+    color: $darkgreen-color;
+    padding: $margin-medium;
+    text-align: center;
+    font-size: $big-heading;
+  }
+
+  &__button {
+    font-weight: $border-darkgreen;
+    color: $white-color;
+    font-size: $big-font;
+    padding: $small-padding;
+    border-radius: $small-radius;
+    transition: $fast-animation;
+    justify-self: right;
+
+    &:hover {
+      color: $darkgreen-color;
+      background-color: $white-color;
+    }
+
+    &__container {
+      text-align: right;
+    }
+  }
+}

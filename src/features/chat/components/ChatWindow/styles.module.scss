@@ -1,22 +1,24 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .chat__window {
   &__container {
     position: absolute;
     bottom: 0;
     right: 0;
-    margin-right: 4rem;
+    margin-right: $margin-medium;
     border-radius: 10px 10px 0 0;
     min-width: 15%;
 
-    background-color: white;
-    font-weight: bold;
-    font-size: 1.6rem;
+    background-color: $white-color;
+    font-weight: $big-weight;
+    font-size: $small-font;
   }
 
   &__user__name {
-    background-color: #074b07;
-    color: white;
-    font-size: 2rem;
-    padding: 1rem 2rem;
+    background-color: $darkgreen-color;
+    color: $white-color;
+    font-size: $big-font;
+    padding: $small-padding;
     border-radius: 10px 10px 0 0;
     overflow-x: hidden;
     display: flex;
@@ -24,17 +26,24 @@
     align-items: center;
   }
 
+  &__user__info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+
   &__button {
-    font-weight: bold;
-    background-color: #074b07;
-    color: white;
-    font-size: 1.6rem;
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
+    font-weight: $big-weight;
+    background-color: $darkgreen-color;
+    color: $white-color;
+    font-size: $small-font;
+    padding: $small-padding;
+    border-radius: $small-radius;
   }
 
   &__input {
-    border: 2px solid #074b07;
+    border: 2px solid $darkgreen-color;
     border-radius: 10px;
     padding: 0.2rem 0.8rem;
     &__container {
@@ -43,6 +52,16 @@
       align-items: center;
       gap: 1rem;
       padding: 1rem;
+    }
+  }
+
+  &__image {
+    width: 3.2rem;
+    height: 3.2rem;
+
+    &__container {
+      border-radius: 50%;
+      overflow: hidden;
     }
   }
 }

@@ -1,25 +1,27 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .diet__form {
   width: 30%;
-  margin: 2rem auto;
+  margin: $margin-small auto;
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: $medium-font;
 
   &__input__container {
-    margin-bottom: 2rem;
+    margin-bottom: $margin-small;
   }
 
   &__button {
-    font-weight: bold;
-    color: #074b07;
-    font-size: 1.8rem;
-    background-color: white;
-    padding: 1rem 2rem;
-    border-radius: 20px;
-    transition: 0.4s;
+    font-weight: $big-weight;
+    color: $darkgreen-color;
+    font-size: $medium-font;
+    background-color: $white-color;
+    padding: $small-padding;
+    border-radius: $small-radius;
+    transition: $fast-animation;
 
     &:hover {
-      background-color: #074b07;
-      color: white;
+      background-color: $darkgreen-color;
+      color: $white-color;
     }
 
     &__container {
@@ -29,7 +31,7 @@
   }
 
   &__header {
-    font-size: 3rem;
-    font-weight: bold;
+    font-size: $big-heading;
+    font-weight: $big-weight;
   }
 }

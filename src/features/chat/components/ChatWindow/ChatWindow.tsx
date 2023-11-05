@@ -1,18 +1,16 @@
-import { useFetchSingleUserDataQuery } from "@/services/users";
-import ChatMessage from "../ChatMessage/ChatMessage";
+import { useFetchSingleUserDataQuery } from "@/shared/services/users";
+
 import { FormEvent, useState } from "react";
 import styles from "./styles.module.scss";
-import {
-  useAddMessageToChatMutation,
-  useFetchUsersChatQuery,
-} from "@/features/chat/services/chats";
+import { useAddMessageToChatMutation } from "@/features/chat/services/chats";
 import { useChatWithUser, useUser } from "@/store/store";
 import MessagesList from "../MessagesList/MessagesList";
-import { ChatType } from "@/shared/types/ChatListTypes";
-import { CloseButton, Collapse, Input } from "@chakra-ui/react";
+import defaultImage from "../../../../../images.png";
+import { CloseButton } from "@chakra-ui/react";
 import { boundChatActions } from "@/shared/hooks/useBindActionsToDispatch";
+import Image from "next/image";
 
-const ChatWindow = () => {
+export const ChatWindow = () => {
   const chatWith = useChatWithUser();
   const userData = useFetchSingleUserDataQuery(chatWith.chatWithUser);
   const [message, setMessage] = useState("");
@@ -45,9 +43,22 @@ const ChatWindow = () => {
   return (
     <div className={styles.chat__window__container}>
       <div className={styles.chat__window__user__name}>
-        <h1>
-          {userData.data.firstName} {userData.data.lastName}
-        </h1>
+        <div className={styles.chat__window__user__info}>
+          <div className={styles.chat__window__image__container}>
+            <Image
+              className={styles.chat__window__image}
+              src={
+                userData.data.imageUrl ? userData.data.imageUrl : defaultImage
+              }
+              width={50}
+              height={50}
+              alt="profile image"
+            />
+          </div>
+          <h1>
+            {userData.data.firstName} {userData.data.lastName}
+          </h1>
+        </div>
         <CloseButton size="lg" onClick={handleCloseChat} />
       </div>
 
@@ -69,5 +80,3 @@ const ChatWindow = () => {
     </div>
   );
 };
-
-export default ChatWindow;

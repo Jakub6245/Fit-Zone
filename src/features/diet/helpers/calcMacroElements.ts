@@ -1,17 +1,16 @@
 import { UserDataT } from "../types/userDataObject";
 
-export const calcCalories = (userData: UserDataT, sex: string) => {
-  console.log(userData, sex);
+export const calcCalories = (userData: UserDataT, sex: string): number => {
   if (sex === "male") {
-    return (
+    return Math.floor(
       (10 * userData.weight + 6.25 * userData.height - 5 * userData.age + 5) *
-      userData.physicalActivity
+        userData.physicalActivity
     );
   }
   if (sex === "female") {
-    return (
+    return Math.floor(
       (10 * userData.weight + 6.25 * userData.height - 5 * userData.age - 161) *
-      userData.physicalActivity
+        userData.physicalActivity
     );
   }
   return 0;

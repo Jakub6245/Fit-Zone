@@ -1,0 +1,25 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.chat__users__list {
+  &__container {
+    position: absolute;
+    background-color: $darkgreen-color;
+    box-shadow: $box-shadow;
+    border-radius: $small-radius;
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+
+  &__chat__user__container {
+    &:not(:last-child) {
+      border-bottom: $border-white;
+    }
+  }
+
+  &__message {
+    padding: $small-padding;
+    font-weight: $big-weight;
+    font-size: $small-font;
+    color: $white-color;
+  }
+}

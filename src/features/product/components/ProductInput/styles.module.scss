@@ -1,21 +1,23 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .product {
   &__form {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: $margin-small;
   }
 
   &__input {
     width: 25%;
-    font-size: 1.6rem;
-    border: 2px solid #074b07;
-    padding: 1rem 2rem;
-    border-radius: 20px;
+    font-size: $small-font;
+    border: $border-darkgreen;
+    padding: $small-padding;
+    border-radius: $small-radius;
   }
 
   &__text {
-    font-weight: bold;
-    font-size: 2.4rem;
-    color: #074b07;
+    font-weight: $big-weight;
+    font-size: $small-heading;
+    color: $darkgreen-color;
     text-align: center;
   }
 }

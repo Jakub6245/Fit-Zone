@@ -1,0 +1,13 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.training__input {
+  width: 100%;
+  padding: $small-padding;
+  border-radius: $small-radius;
+  border: $border-darkgreen;
+}
+
+.training__form {
+  width: 30%;
+  text-align: center;
+}

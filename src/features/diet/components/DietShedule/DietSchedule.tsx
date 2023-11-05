@@ -1,6 +1,4 @@
 import { useUser } from "@/store/store";
-import { DietObjectT } from "../../types/dietObject";
-import { Text } from "@chakra-ui/react";
 import { useFetchUsersDietObjectQuery } from "../../services/diets";
 import { useFetchUsersDietDayQuery } from "@/features/dietDuringDay/services/dietDay";
 import { calculateSum } from "@/features/dietDuringDay/helpers/sumDIetDuringDay";
@@ -10,7 +8,7 @@ export const DietShedule = () => {
   const user = useUser();
   const dietObject = useFetchUsersDietObjectQuery(user.dietObjectId);
   const dietDuringDay = useFetchUsersDietDayQuery(user.dietDayObjectId);
-  console.log(dietDuringDay.data, dietObject.data);
+
   if (!dietObject.data || !dietDuringDay.data) return;
   return (
     <div className={styles.diet__shedule__container}>

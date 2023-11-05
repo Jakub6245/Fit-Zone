@@ -1,12 +1,14 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .previous__days {
   &__container {
     width: 80%;
     margin: 0 auto;
     display: flex;
-    gap: 2rem;
+    gap: $margin-small;
     justify-content: center;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: $margin-small;
   }
 
   &__items {
@@ -14,18 +16,18 @@
     justify-content: space-between;
     align-items: center;
 
-    color: white;
-    background-color: #074b07;
+    color: $white-color;
+    background-color: $darkgreen-color;
   }
 
   &__button {
-    font-weight: bold;
-    font-size: 1.8rem;
-    padding: 1rem 2rem;
-    color: white;
-    background-color: #074b07;
+    font-weight: $big-weight;
+    font-size: $medium-font;
+    padding: $small-padding;
+    color: $white-color;
+    background-color: $darkgreen-color;
     &:hover {
-      opacity: 0.5;
+      opacity: $animation-opacity;
     }
   }
 }

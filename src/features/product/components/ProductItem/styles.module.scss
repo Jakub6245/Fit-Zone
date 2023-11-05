@@ -1,18 +1,20 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .product__item {
   &__container {
-    border-radius: 20px;
+    border-radius: $small-radius;
     margin: 0 auto;
     max-width: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: bold;
-    font-size: 1.8rem;
-    color: white;
-    background-color: #074b07;
-    gap: 2rem;
+    font-weight: $big-weight;
+    font-size: $medium-font;
+    color: $white-color;
+    background-color: $darkgreen-color;
+    gap: $margin-small;
     padding: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: $margin-small;
   }
 
   &__input {
@@ -27,29 +29,29 @@
   }
 
   &__input__button {
-    background-color: white;
-    padding: 1rem 2rem;
-    color: #074b07;
-    font-weight: bold;
-    font-size: 1.8rem;
-    border-radius: 20px;
-    transition: 0.2s;
+    background-color: $white-color;
+    padding: $small-padding;
+    color: $darkgreen-color;
+    font-weight: $big-weight;
+    font-size: $medium-font;
+    border-radius: $small-radius;
+    transition: $fast-animation;
 
     &:hover {
-      opacity: 0.5;
+      opacity: $animation-opacity;
     }
   }
 
   &__button {
-    background-color: white;
-    color: #074b07;
-    padding: 1rem 2rem;
-    border-radius: 20px;
-    font-weight: bold;
-    font-size: 1.8;
+    background-color: $white-color;
+    color: $darkgreen-color;
+    padding: $small-padding;
+    border-radius: $small-radius;
+    font-weight: $big-weight;
+    font-size: $medium-font;
 
     &:hover {
-      opacity: 0.5;
+      opacity: $animation-opacity;
     }
   }
 }

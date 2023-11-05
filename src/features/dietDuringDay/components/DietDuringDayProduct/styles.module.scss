@@ -1,13 +1,15 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .diet__during__day {
   &__container {
     display: flex;
-    gap: 2rem;
+    gap: $margin-small;
     align-items: center;
     justify-content: flex-start;
 
-    font-weight: bold;
-    background-color: #074b07;
-    padding: 1.4rem 2.8rem;
+    font-weight: $big-weight;
+    background-color: $darkgreen-color;
+    padding: $medium-padding;
 
     &:first-child {
       border-radius: 10px 10px 0 0;
@@ -18,27 +20,27 @@
     }
 
     &:not(:last-child) {
-      border-bottom: 2px solid white;
+      border-bottom: $border-white;
     }
   }
 
   &__label {
-    font-size: 2rem;
+    font-size: $big-font;
     padding: 0.2rem 0.8rem;
-    color: white;
+    color: $white-color;
   }
 
   &__button {
-    background-color: red;
-    color: white;
-    font-size: 1.6rem;
-    font-weight: bold;
+    background-color: $red-color;
+    color: $white-color;
+    font-size: $small-font;
+    font-weight: $big-weight;
     padding: 0.4rem 1.2rem;
     border-radius: 10px;
-    transition: 0.2s;
+    transition: $fast-animation;
 
     &:hover {
-      opacity: 0.8;
+      opacity: $animation-opacity;
     }
   }
 }

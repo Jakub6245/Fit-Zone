@@ -1,0 +1,25 @@
+@import "../../../../shared/styles/variables.module.scss";
+.chat__user {
+  &__container {
+    padding: $small-padding;
+    font-weight: $big-weight;
+    font-size: $small-font;
+    color: $white-color;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+
+    cursor: pointer;
+  }
+
+  &__image {
+    width: 3.2rem;
+    height: 3.2rem;
+
+    &__container {
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+}

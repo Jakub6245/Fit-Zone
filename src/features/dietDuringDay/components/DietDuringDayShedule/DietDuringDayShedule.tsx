@@ -5,10 +5,12 @@ import {
 } from "../../services/dietDay";
 import { DietDayProdcut } from "../DietDuringDayProduct/DietDuringDayProduct";
 import styles from "./styles.module.scss";
-import schedule from "node-schedule";
-import { getYesterdaysDate } from "../../helpers/getYesterdayDate";
-import { DietDayProductObjectT } from "@/features/product/types/productObject";
+import shedule from "node-schedule";
+import { getDate } from "../../helpers/getYesterdayDate";
+import { DietDayProductObjectT } from "@/features/diet/types/dietObject";
 import { DietDaySummary } from "@/features/diet/components/DietDaySummary/DietDaySummary";
+
+const currentDay = "today";
 
 export const DietDayShedule = ({
   dietDay,
@@ -19,27 +21,29 @@ export const DietDayShedule = ({
   const dietDayDate = useDietDayDate();
   const [saveDietDays] = useSaveDietDayMutation();
 
-  schedule.scheduleJob("0 0 * * *", () => {
-    if (dietDay.dietDay.length > 0) {
-      saveDietDays({
-        savedDietDaysId: user.savedDietDaysObjectId,
-        dietDay: { dietDay: dietDay.dietDay, date: getYesterdaysDate() },
-        dietDuringDayId: user.dietDayObjectId,
-      });
-    }
-  });
+  // shedule.scheduleJob("0 0 0 * * *", () => {
+  //   if (dietDay.dietDay.length > 0) {
+  //     saveDietDays({
+  //       savedDietDaysId: user.savedDietDaysObjectId,
+  //       dietDay: { dietDay: dietDay.dietDay, date: getYesterdaysDate() },
+  //       dietDuringDayId: user.dietDayObjectId,
+  //     });
+  //   }
+  // });
 
   return (
     <div>
       {dietDay.dietDay.length === 0 && (
-        <h1 className={styles.diet__during__day__text}>Add your first meal</h1>
+        <h1 className={styles.diet__during__day__header}>
+          Add your first meal
+        </h1>
       )}
       <div className={styles.diet__during__day__container}>
         {dietDay.dietDay.map((el, i) => (
           <DietDayProdcut productData={el} key={i} />
         ))}
       </div>
-      {dietDayDate !== "today" && <DietDaySummary dietDay={dietDay} />}
+      {dietDayDate !== currentDay && <DietDaySummary dietDay={dietDay} />}
     </div>
   );
 };

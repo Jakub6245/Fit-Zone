@@ -1,21 +1,23 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .diet__day__summary {
   &__container {
     width: 60%;
     margin: 0 auto;
-    margin-bottom: 2rem;
+    margin-bottom: $margin-small;
     display: flex;
-    gap: 2rem;
+    gap: $margin-small;
     align-items: center;
     justify-content: space-around;
 
-    font-weight: bold;
-    background-color: #074b07;
-    padding: 1.4rem 2.8rem;
+    font-weight: $big-weight;
+    background-color: $darkgreen-color;
+    padding: $medium-padding;
   }
 
   &__text {
-    font-size: 2rem;
-    padding: 0.2rem 0.8rem;
-    color: white;
+    font-size: $big-font;
+    padding: $small-padding;
+    color: $white-color;
   }
 }

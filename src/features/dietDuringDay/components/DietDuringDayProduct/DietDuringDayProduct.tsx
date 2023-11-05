@@ -1,5 +1,4 @@
-import { DietDayProductT } from "@/features/product/types/productObject";
-import { Text, Button } from "@chakra-ui/react";
+import { DietDayProductT } from "@/features/diet/types/dietObject";
 import { useDeleteProductFromDietDayMutation } from "../../services/dietDay";
 import { useDietDayDate, useUser } from "@/store/store";
 import { useState } from "react";

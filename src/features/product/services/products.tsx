@@ -1,7 +1,6 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getProductList } from "./firebaseProductsMethods";
-import { DietDayProductT, ProductObjectT } from "../types/productObject";
-import { addProductToDayDiet } from "@/features/dietDuringDay/services/firebaseDietDayMethods";
+import { ProductObjectT } from "../types/productObject";
 
 export const products = createApi({
   reducerPath: "products",
@@ -12,7 +11,7 @@ export const products = createApi({
       async queryFn() {
         try {
           const data = (await getProductList()) as ProductObjectT;
-          console.log(data);
+
           return { data: data as ProductObjectT };
         } catch (error) {
           return { error: error };

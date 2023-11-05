@@ -13,7 +13,6 @@ import {
 
 import { ChatType } from "@/shared/types/ChatListTypes";
 import { MessageType } from "@/shared/types/MessageType";
-import { uuid } from "uuidv4";
 
 export const addChatObjectToDB = (trainerId: string, clientId: string) => {
   try {

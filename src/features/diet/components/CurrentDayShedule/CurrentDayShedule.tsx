@@ -1,6 +1,6 @@
-import { DietDayShedule } from "@/features/dietDuringDay/components/DietDuringDayShedule/DietDuringDayShedule";
+import { DietDayShedule } from "@/features/dietDuringDay";
 import { DietShedule } from "../DietShedule/DietSchedule";
-import { ProductInput } from "@/features/product/components/ProductInput/ProductInput";
+import { ProductInput } from "@/features/product"; 
 import { useFetchUsersDietDayQuery } from "@/features/dietDuringDay/services/dietDay";
 import { useUser } from "@/store/store";
 import { PreviousDietDays } from "../PreviousDietDays/PreviousDietDays";

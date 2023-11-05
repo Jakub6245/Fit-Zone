@@ -1,0 +1,43 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.register {
+  &__form {
+    margin-top: $margin-medium;
+    background-color: $lightgreen-color;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: $margin-small;
+
+    &__input {
+      font-weight: $big-weight;
+      font-size: $small-font;
+      border: $border-darkgreen;
+      width: 100%;
+
+      &__container {
+        width: 40%;
+        font-size: $big-font;
+      }
+    }
+
+    &__button {
+      background-color: $darkgreen-color;
+      color: $white-color;
+      padding: $small-padding;
+      border-radius: $small-radius;
+      font-weight: $big-weight;
+      font-size: $medium-font;
+      transition: $fast-animation;
+
+      &:hover {
+        opacity: $animation-opacity;
+      }
+
+      &__container {
+        text-align: right;
+      }
+    }
+  }
+}

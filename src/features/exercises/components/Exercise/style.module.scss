@@ -1,0 +1,41 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.exercise {
+  &__container {
+    border-radius: $small-radius;
+    margin: 0 auto;
+    max-width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: $big-weight;
+    font-size: $big-font;
+    color: $white-color;
+    background-color: $darkgreen-color;
+
+    padding: 1rem;
+    margin-bottom: $margin-small;
+  }
+
+  &__text {
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $margin-medium;
+  }
+
+  &__button {
+    background-color: $white-color;
+    padding: $small-padding;
+    color: $darkgreen-color;
+    font-weight: $big-weight;
+    font-size: $medium-font;
+    border-radius: $small-radius;
+    transition: $fast-animation;
+
+    &:hover {
+      opacity: $animation-opacity;
+    }
+  }
+}

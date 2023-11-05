@@ -1,4 +1,4 @@
-import { ProfileContainer } from "@/features/profile/components/ProfileContainer/ProfileContainer";
+import { ProfileContainer } from "@/features/profile";
 import Navigation from "@/shared/components/navigation/Navigation";
 
 const Profile = () => {

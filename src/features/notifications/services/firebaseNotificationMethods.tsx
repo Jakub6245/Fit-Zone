@@ -4,7 +4,6 @@ import {
 } from "@/shared/types/NotificationType";
 import { dbNotificationCollection } from "@/config/firebaseConfig";
 import { setDoc, doc, getDoc, updateDoc } from "firebase/firestore";
-import { uuid } from "uuidv4";
 import { createToastNotification } from "@/shared/helpers/createToastNotification";
 
 export const addUsersNotificationListToDB = () => {

@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { validationSchema } from "@/config/validation/descriptionInputValidation";
-import { useUpdateUserDataMutation } from "@/services/users";
+import { useUpdateUserDataMutation } from "@/shared/services/users";
 import { UserObjectType } from "@/shared/types/UserType";
 import { useState } from "react";
 import styles from "./styles.module.scss";
@@ -29,14 +29,13 @@ export const AddDescriptionInput = ({ user }: { user: UserObjectType }) => {
   return (
     <div className={styles.description}>
       {!isDescriptionInputShown && (
-        <p style={{ maxWidth: "100%" }}>{user.description}</p>
+        <p className={styles.description__text}>{user.description}</p>
       )}
       <form onSubmit={formik.handleSubmit}>
         {isDescriptionInputShown && (
           <div>
             <div className={styles.description__container}>
               <textarea
-                style={{ maxWidth: "100%" }}
                 name="description"
                 className={styles.description__input}
                 value={formik.values.description}

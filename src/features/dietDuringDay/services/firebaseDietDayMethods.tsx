@@ -1,25 +1,14 @@
 import {
-  dbDietCollection,
   dbDietDayCollection,
   dbSavedDietDaysCollection,
 } from "@/config/firebaseConfig";
-import {
-  setDoc,
-  doc,
-  updateDoc,
-  getDoc,
-  query,
-  where,
-  getDocs,
-  DocumentData,
-} from "firebase/firestore";
-import { DietObjectT } from "@/features/diet/types/dietObject";
+import { setDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import {
   DietDayProductObjectT,
   DietDayProductT,
   SavedDietDaysObjectType,
   SavedDietDaysType,
-} from "@/features/product/types/productObject";
+} from "../../diet/types/dietObject";
 
 export const addDietDayObjectToDB = () => {
   try {
@@ -50,7 +39,6 @@ export const saveDietDay = async (
       savedDietDaysId
     )) as SavedDietDaysObjectType;
     savedDietDays.savedDietDays.push(newDay);
-    console.log(savedDietDays);
     await updateSavedDietDaysObject(savedDietDaysId, savedDietDays);
   } catch (error) {
     console.error(error);
@@ -66,7 +54,6 @@ export const addProductToDayDiet = async (
       dietDayId
     )) as DietDayProductObjectT;
     dietDay.dietDay.push(newProduct);
-    console.log(dietDay);
     await updateUsersDietDayObject(dietDayId, dietDay);
   } catch (error) {
     console.error(error);
@@ -88,7 +75,6 @@ export const deleteProductFromDayDiet = async (
       dietDay.dietDay.splice(productToDeleteIndex, 1);
     }
 
-    console.log(dietDay);
     await updateUsersDietDayObject(dietDayId, dietDay);
   } catch (error) {
     console.error(error);
@@ -115,7 +101,6 @@ export const updateSavedDietDaysObject = async (
 
 export const getDietDayObject = async (dietObjectId: string) => {
   try {
-    // const isInDB = await isdietDayInDB(uid);
     const response = await getDoc(doc(dbDietDayCollection, dietObjectId));
 
     const data = response.data();
@@ -134,7 +119,6 @@ export const getSavedDietDay = async (
     savedDietObjectId
   )) as SavedDietDaysObjectType;
   if (!days) return;
-  console.log(days);
   const givenDay = days.savedDietDays.find((el) => el.date === date);
 
   return givenDay;

@@ -1,6 +1,7 @@
 import ChatMessage from "../ChatMessage/ChatMessage";
 import { useFetchUsersChatQuery } from "@/features/chat/services/chats";
 import styles from "./styles.module.scss";
+import { pollingIntervalTime } from "../../config/pollingIntervalTime";
 
 const MessagesList = ({
   userId,
@@ -9,19 +10,15 @@ const MessagesList = ({
   userId: string;
   chatWithUser: string;
 }) => {
-  // Function to scroll the container to the bottom
-
   const chatData = useFetchUsersChatQuery(
     {
       userId: userId,
       chatWithUser: chatWithUser,
     },
-    { pollingInterval: 5000 }
+    { pollingInterval: pollingIntervalTime }
   );
 
-  if (chatData.isLoading)
-    return <div style={{ height: "40vh" }}>...Loading</div>;
-  if (!chatData.data) return "No data";
+  if (!chatData.data) return;
 
   const reversedArray = [...chatData.data.messages].reverse();
 

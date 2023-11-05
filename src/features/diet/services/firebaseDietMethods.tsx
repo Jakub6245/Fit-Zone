@@ -23,7 +23,6 @@ export const updateUsersDietObject = async (
 
 export const getDietObject = async (dietObjectId: string) => {
   try {
-    // const isInDB = await isclientListInDB(uid);
     const response = await getDoc(doc(dbDietCollection, dietObjectId));
 
     const data = response.data();

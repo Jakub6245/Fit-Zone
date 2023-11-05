@@ -1,0 +1,17 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.training__container {
+  width: 80%;
+  margin: $margin-medium auto;
+  font-weight: $big-weight;
+  font-size: $medium-font;
+
+  &__inputs {
+    gap: $margin-medium;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: $margin-small;
+  }
+}

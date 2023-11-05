@@ -1,3 +1,5 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .phone__number {
   display: flex;
   flex-direction: column;
@@ -6,8 +8,8 @@
   align-items: flex-start;
   &__input {
     color: black;
-    font-weight: bold;
-    margin-bottom: 2rem;
+    font-weight: $big-weight;
+    margin-bottom: $margin-small;
   }
 
   &__error {
@@ -16,12 +18,12 @@
 
   &__button {
     color: white;
-    font-weight: bold;
-    font-size: 2rem;
-    transition: 0.2s;
+    font-weight: $big-weight;
+    font-size: $margin-small;
+    transition: $fast-animation;
 
     &:hover {
-      opacity: 0.5;
+      opacity: $animation-opacity;
     }
   }
 }

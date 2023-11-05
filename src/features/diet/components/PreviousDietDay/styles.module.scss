@@ -1,10 +1,12 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .previous__diet__days {
   &__button {
-    font-weight: bold;
-    font-size: 1.8rem;
-    padding: 1rem 2rem;
+    font-weight: $big-weight;
+    font-size: $medium-font;
+    padding: $small-padding;
     &:hover {
-      opacity: 0.5;
+      opacity: $animation-opacity;
     }
   }
 }

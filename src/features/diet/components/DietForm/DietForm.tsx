@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
-import { updateUser } from "@/services/firebaseUserMethods";
-
-import { useFormik } from "formik";
+import { updateUser } from "@/shared/services/firebaseUserMethods";
+import { FormikValues, useFormik } from "formik";
 import { validationSchema } from "@/config/validation/dietFormValidationSchema";
 import {
   calcCalories,
@@ -26,6 +25,15 @@ import {
   addSavedDietDaysObject,
 } from "@/features/dietDuringDay/services/firebaseDietDayMethods";
 import styles from "./styles.module.scss";
+import { useUpdateUserDataMutation } from "@/shared/services/users";
+import { UserObjectType } from "@/shared/types/UserType";
+
+type UserDataT = {
+  weight: number;
+  height: number;
+  age: number;
+  physicalActivity: number;
+};
 
 const initialValues = {
   weight: "",
@@ -33,39 +41,56 @@ const initialValues = {
   age: "",
 };
 
+const createUserData = (formik: FormikValues, physicalActivity: number) => ({
+  weight: Number(formik.values.weight),
+  height: Number(formik.values.height),
+  age: Number(formik.values.age),
+  physicalActivity,
+});
+
+const handleFormSubmit = async (
+  formData: { userData: UserDataT; sex: string; user: UserObjectType },
+  updateFnc: (arg: { userId: string; userData: UserObjectType }) => void
+) => {
+  try {
+    const calories = calcCalories(formData.userData, formData.sex);
+    const fats = calcFats(calories);
+    const protein = 2 * formData.userData.weight;
+    const carbohydrates = calcCarbohydrates(calories, protein, fats);
+    const dietObjectId = addDietObjectToDB({
+      calories,
+      protein,
+      fats,
+      carbohydrates,
+    });
+    const dietDayObjectId = addDietDayObjectToDB();
+    const savedDietDaysObjectId = addSavedDietDaysObject();
+
+    if (!dietObjectId || !dietDayObjectId || !savedDietDaysObjectId) return;
+
+    updateFnc({
+      userId: formData.user.id,
+      userData: {
+        ...formData.user,
+        dietObjectId,
+        dietDayObjectId,
+        savedDietDaysObjectId,
+      },
+    });
+    createToastNotification("Your diet shedule has been created");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export function DietForm() {
   const [physicalActivity, setPhysicalActivity] = useState<number>(1);
   const [sex, setSex] = useState("");
   const user = useUser();
+  const [updateUserData] = useUpdateUserDataMutation();
 
-  const handleSubmit = async () => {
-    try {
-      const calories = calcCalories(userData, sex);
-      const fats = calcFats(calories);
-      const protein = 2 * userData.weight;
-      const carbohydrates = calcCarbohydrates(calories, protein, fats);
-      console.log(calories, fats, protein, carbohydrates);
-      const dietObjectId = addDietObjectToDB({
-        calories,
-        protein,
-        fats,
-        carbohydrates,
-      });
-      const dietDayObjectId = addDietDayObjectToDB();
-      const savedDietDaysObjectId = addSavedDietDaysObject();
-      console.log(dietObjectId, dietDayObjectId);
-      if (!dietObjectId || !dietDayObjectId || !savedDietDaysObjectId) return;
-      console.log(23423);
-      await updateUser(user.id, {
-        ...user,
-        dietObjectId,
-        dietDayObjectId,
-        savedDietDaysObjectId,
-      });
-      createToastNotification("Your diet shedule has been created");
-    } catch (error) {
-      console.error(error);
-    }
+  const handleSubmit = () => {
+    handleFormSubmit({ userData, sex, user }, updateUserData);
   };
 
   const formik = useFormik({
@@ -75,13 +100,8 @@ export function DietForm() {
     validateOnChange: false,
     validateOnBlur: false,
   });
-  console.log(formik.values);
-  const userData = {
-    weight: Number(formik.values.weight),
-    height: Number(formik.values.height),
-    age: Number(formik.values.age),
-    physicalActivity,
-  };
+
+  const userData = createUserData(formik.values, physicalActivity);
 
   const onActivitySelectInputChange = (value: string) => {
     setPhysicalActivity(Number(value));

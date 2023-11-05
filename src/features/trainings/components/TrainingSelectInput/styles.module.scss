@@ -1,0 +1,13 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.training__select__input {
+  padding: 1rem;
+  font-weight: $big-weight;
+  font-size: $medium-font;
+  border: $border-darkgreen;
+
+  &__option {
+    font-weight: $big-weight;
+    font-size: $medium-font;
+  }
+}

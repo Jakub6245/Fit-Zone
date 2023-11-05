@@ -1,0 +1,30 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.training__day__item {
+  &__container {
+    display: flex;
+    justify-content: flex-start;
+    gap: $margin-medium;
+    font-weight: $big-weight;
+    font-size: $small-heading;
+    align-items: center;
+    color: $white-color;
+    padding: $small-padding;
+    margin-bottom: $margin-small;
+    border-bottom: $border-white;
+  }
+
+  &__button {
+    background-color: $red-color;
+    color: $white-color;
+    font-size: $small-font;
+    font-weight: $big-weight;
+    padding: 0.4rem 1.2rem;
+    border-radius: 10px;
+    transition: $fast-animation;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}

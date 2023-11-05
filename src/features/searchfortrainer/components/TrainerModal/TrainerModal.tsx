@@ -1,20 +1,18 @@
-import { useFetchSingleUserDataQuery } from "@/services/users";
+import { useFetchSingleUserDataQuery } from "@/shared/services/users";
 import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Button,
 } from "@chakra-ui/react";
-import { uuid } from "uuidv4";
 import Image from "next/image";
 import defaultImage from "../../../../../images.png";
 import styles from "./styles.module.scss";
 import { useAddNotificationToListMutation } from "@/features/notifications/services/notifications";
 import { useUser } from "@/store/store";
+import { createNotificationObject } from "@/features/notifications/helpers/createNotificationObject";
 
 export const TrainerModal = ({
   isOpen,
@@ -29,11 +27,7 @@ export const TrainerModal = ({
   const { data } = useFetchSingleUserDataQuery(trainerId);
   const [addNotificationToList] = useAddNotificationToListMutation();
 
-  const notificationObject = {
-    id: uuid(),
-    from: user.id,
-    message: `the user ${user.firstName} ${user.lastName} wants to work with you`,
-  };
+  const notificationObject = createNotificationObject(user);
 
   if (!data) return;
   const handleClick = () => {
@@ -61,8 +55,8 @@ export const TrainerModal = ({
             <h1 className={styles.trainer__modal__name}>
               {data.firstName} {data.lastName}
             </h1>
-            <p> {data.email}</p>
-            <p> {data.phoneNumber}</p>
+            <p>Email: {data.email}</p>
+            <p>Phone number: {data.phoneNumber}</p>
             <p>{data.description}</p>
           </ModalBody>
 

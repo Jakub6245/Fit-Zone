@@ -2,54 +2,62 @@ import { useFetchSavedDietDaysQuery } from "@/features/dietDuringDay/services/di
 import { useUser } from "@/store/store";
 import { PrevousDietDay } from "../PreviousDietDay/PreviousDietDay";
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { boundDietDayActions } from "@/shared/hooks/useBindActionsToDispatch";
+import { SavedDietDaysObjectType } from "../../types/dietObject";
+
+const currentDay = "today";
+const elementsPerPage = 7;
+
+const getPaginationStartingIndex = (
+  data: SavedDietDaysObjectType,
+  currentPage: number
+) => {
+  return data.savedDietDays.length - (currentPage + 1) * elementsPerPage < 0
+    ? 0
+    : data.savedDietDays.length - (currentPage + 1) * elementsPerPage;
+};
+
+const getPaginationEndingIndex = (
+  data: SavedDietDaysObjectType,
+  currentPage: number
+) => {
+  return data.savedDietDays.length - currentPage * elementsPerPage;
+};
+
+const handlePageChange = (
+  changeType: "Prev" | "Next",
+  onChange: Dispatch<SetStateAction<number>>
+) => {
+  if (changeType === "Prev") {
+    onChange((prev: number) => prev + 1);
+  }
+  if (changeType === "Next") {
+    onChange((prev: number) => prev - 1);
+  }
+};
 
 export const PreviousDietDays = () => {
   const user = useUser();
   const { data } = useFetchSavedDietDaysQuery(user.savedDietDaysObjectId);
   const [currentPage, setCurrentPage] = useState(0);
   if (!data) return;
-  const totalPages = Math.ceil(data.savedDietDays.length / 7); // Total number of pages
-  const elementsPerPage = 7;
-  const handlePageChange = (changeType: "Prev" | "Next") => {
-    if (changeType === "Prev") {
-      setCurrentPage((prev) => prev + 1);
-    }
-    if (changeType === "Next") {
-      setCurrentPage((prev) => prev - 1);
-    }
-    // You can also fetch data for the new page here
-  };
+  const totalPages = Math.ceil(data.savedDietDays.length / elementsPerPage);
 
   const handleClick = () => {
-    boundDietDayActions.setDate({ date: "today" });
+    boundDietDayActions.setDate({ date: currentDay });
   };
 
-  const paginationStartingIndex =
-    data.savedDietDays.length - (currentPage + 1) * elementsPerPage < 0
-      ? 0
-      : data.savedDietDays.length - (currentPage + 1) * elementsPerPage;
+  const paginationStartingIndex = getPaginationStartingIndex(data, currentPage);
 
-  console.log(
-    data.savedDietDays.length - (currentPage + 1) * elementsPerPage,
-    data.savedDietDays.length - currentPage * elementsPerPage
-  );
-
-  const paginationEndingIndex =
-    data.savedDietDays.length - currentPage * elementsPerPage;
-
-  console.log(
-    data.savedDietDays.length - (currentPage + 1) * elementsPerPage,
-    data.savedDietDays.length - currentPage * elementsPerPage
-  );
+  const paginationEndingIndex = getPaginationEndingIndex(data, currentPage);
 
   return (
     <div className={styles.previous__days__container}>
       <button
         className={styles.previous__days__button}
         disabled={currentPage === totalPages - 1}
-        onClick={() => handlePageChange("Prev")}
+        onClick={() => handlePageChange("Prev", setCurrentPage)}
       >
         Prev
       </button>
@@ -66,7 +74,7 @@ export const PreviousDietDays = () => {
       <button
         className={styles.previous__days__button}
         disabled={currentPage === 0}
-        onClick={() => handlePageChange("Next")}
+        onClick={() => handlePageChange("Next", setCurrentPage)}
       >
         Next
       </button>

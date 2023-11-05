@@ -1,21 +1,27 @@
 import { useUser } from "@/store/store";
 import { AddPhoneNumberInput } from "../AddPhoneNumberInput/AddPhoneNumberInput";
-import { useState } from "react";
-import { useFetchSingleUserDataQuery } from "@/services/users";
+import { useFetchSingleUserDataQuery } from "@/shared/services/users";
 import { AddDescriptionInput } from "../AddDescriptionInput/AddDescriptionInput";
-import Image from "next/image";
-import defaultImage from "../../../../../images.png";
 import { AddImageInput } from "../AddImageInput/AddImageInput";
-import { getDownloadURL, ref } from "firebase/storage";
-import { storage } from "@/config/firebaseConfig";
 import styles from "./styles.module.scss";
+import { signOut } from "firebase/auth";
+import { auth } from "@/config/firebaseConfig";
+
+import { useRouter } from "next/router";
 
 export const ProfileContainer = () => {
   const user = useUser();
+  const router = useRouter();
 
   const { data } = useFetchSingleUserDataQuery(user.id);
 
   if (!data) return;
+
+  const handleSignout = () => {
+    signOut(auth).then(() => {
+      router.push("/login");
+    });
+  };
 
   return (
     <div className={styles.profile}>
@@ -29,6 +35,10 @@ export const ProfileContainer = () => {
         <AddPhoneNumberInput user={data} />
 
         <AddDescriptionInput user={data} />
+
+        <button className={styles.profile__button} onClick={handleSignout}>
+          Sign out
+        </button>
       </div>
     </div>
   );
