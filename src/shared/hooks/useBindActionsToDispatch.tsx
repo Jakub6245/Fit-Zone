@@ -4,6 +4,7 @@ import { actions as userActions } from "@/shared/slices/user";
 import { actions as notificationActions } from "@/features/notifications/slices/notification";
 import { actions as chatActions } from "@/features/chat/slices/chat";
 import { actions as dietDayActions } from "@/features/diet/slices/dietDay";
+import { actions as trainingActions } from "@/features/trainings/slices/training";
 
 export interface ActionsObject {
   [x: string]: (...args: any[]) => any;
@@ -45,4 +46,9 @@ export const boundChatActions = bindActionsToDispatch(
 export const boundDietDayActions = bindActionsToDispatch(
   store.dispatch,
   dietDayActions
+);
+
+export const boundTrainingActions = bindActionsToDispatch(
+  store.dispatch,
+  trainingActions
 );

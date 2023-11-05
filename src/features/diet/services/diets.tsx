@@ -12,7 +12,7 @@ export const dietObject = createApi({
       async queryFn(dietObjectId: string) {
         try {
           const data = await getDietObject(dietObjectId);
-          console.log(data);
+
           return { data: data as DietObjectT };
         } catch (error) {
           return { error: error };

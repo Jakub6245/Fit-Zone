@@ -1,0 +1,9 @@
+@import "../../../shared/styles/variables.module.scss";
+.password {
+  &__input {
+    font-weight: $big-weight;
+    font-size: $small-font;
+    border: $border-darkgreen;
+    width: 100%;
+  }
+}

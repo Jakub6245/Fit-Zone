@@ -6,4 +6,5 @@ export type StateType = {
   notificationReducer: { notifications: NotificationType[] };
   chatReducer: { chatWithUser: string; isOpen: boolean };
   dietDayReducer: { date: string };
+  trainingReducer: { date: string; id: string };
 };

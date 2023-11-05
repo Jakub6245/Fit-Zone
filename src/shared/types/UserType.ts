@@ -6,7 +6,7 @@ export type UserObjectType = {
   password: string;
   userType: string;
   notificationListId: string;
-  clientListId: string;
+  chatUsersListId: string;
   chatList: string[];
   dietObjectId: string;
   dietDayObjectId: string;
@@ -15,6 +15,8 @@ export type UserObjectType = {
   savedDietDaysObjectId: string;
   imageId: string;
   imageUrl: string;
+  trainingId: string;
+  savedTrainingsId: string;
 };
 
 export type UserType = "trainer" | "client";

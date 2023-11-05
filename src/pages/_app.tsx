@@ -1,5 +1,5 @@
 import { StateProvider } from "@/store/StateProvider";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendBaseTheme, theme } from "@chakra-ui/react";
 import "@/shared/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";

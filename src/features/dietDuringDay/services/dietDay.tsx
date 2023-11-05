@@ -2,7 +2,7 @@ import {
   DietDayProductObjectT,
   SavedDietDaysObjectType,
   SavedDietDaysType,
-} from "@/features/product/types/productObject";
+} from "../../diet/types/dietObject";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   deleteProductFromDayDiet,
@@ -13,7 +13,7 @@ import {
   updateUsersDietDayObject,
 } from "./firebaseDietDayMethods";
 import { addProductToDayDiet } from "./firebaseDietDayMethods";
-import { DietDayProductT } from "@/features/product/types/productObject";
+import { DietDayProductT } from "../../diet/types/dietObject";
 import { DocumentData } from "firebase/firestore";
 
 export const dietDay = createApi({
@@ -25,7 +25,6 @@ export const dietDay = createApi({
       async queryFn(dietDayId: string) {
         try {
           const data = await getDietDayObject(dietDayId);
-          console.log(data);
           return { data: data as DietDayProductObjectT };
         } catch (error) {
           return { error: error };
@@ -37,7 +36,7 @@ export const dietDay = createApi({
       async queryFn(savedDietDayId: string) {
         try {
           const data = await getSavedDietDaysObject(savedDietDayId);
-          console.log(data);
+
           return { data: data as SavedDietDaysObjectType };
         } catch (error) {
           return { error: error };
@@ -46,7 +45,7 @@ export const dietDay = createApi({
       providesTags: ["DietDay"],
     }),
     fetchSingleSavedDietDay: builder.query<
-    DietDayProductObjectT,
+      DietDayProductObjectT,
       { savedDietDaysId: string; date: string }
     >({
       async queryFn({ savedDietDaysId, date }) {
@@ -55,7 +54,7 @@ export const dietDay = createApi({
             savedDietDaysId,
             date
           )) as DocumentData;
-          
+
           return { data: data as DietDayProductObjectT };
         } catch (error) {
           return { error: error };

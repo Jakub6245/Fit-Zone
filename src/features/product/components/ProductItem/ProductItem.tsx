@@ -1,6 +1,6 @@
-import { Text, Button } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 import { ProductT } from "../../types/productObject";
-import { NumberInputElement } from "@/features/diet/components/NumberInput/NumberInput";
+
 import { useState } from "react";
 import styles from "./styles.module.scss";
 import { useUser } from "@/store/store";
@@ -15,7 +15,7 @@ export const ProductItem = ({ productData }: { productData: ProductT }) => {
   const user = useUser();
   const [addProductToDietDay] = useAddProductToDietDayMutation();
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     setQuantityInputShow(!isQuantityInputShow);
 
     addProductToDietDay({
@@ -51,7 +51,7 @@ export const ProductItem = ({ productData }: { productData: ProductT }) => {
   return (
     <div className={styles.product__item__container}>
       <p>{productData.name}</p>
-      <p>Calories {productData.calories}</p>
+      <p>Calories: {productData.calories}</p>
       <p>Protein: {productData.protein}</p>
       <p>Fats: {productData.fats}</p>
       <p>Carbohydrates: {productData.carbohydrates}</p>

@@ -1,22 +1,24 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .chat__message {
   &__container {
-    padding: 0.8rem 1.5rem;
+    padding: $small-padding;
 
     overflow-wrap: break-word;
     max-width: 80%;
     margin-bottom: 0.5rem;
-    border-radius: 20px;
+    border-radius: $small-radius;
   }
 
   &__send {
-    color: white;
-    background-color: #074b07;
+    color: $white-color;
+    background-color: $darkgreen-color;
     align-self: flex-end;
   }
 
   &__achieved {
-    background-color: lightgray;
-    color: #074b07;
+    background-color: $lightgray-color;
+    color: $darkgreen-color;
     align-self: flex-start;
   }
 }

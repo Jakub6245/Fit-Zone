@@ -2,7 +2,7 @@ import { UserObjectType } from "@/shared/types/UserType";
 
 export const searchForUsersById = (
   usersArray: UserObjectType[],
-  clientsArray: string[]
+  chatUsersArray: string[]
 ) => {
-  return usersArray.filter((user) => clientsArray.includes(user.id));
+  return usersArray.filter((user) => chatUsersArray.includes(user.id));
 };

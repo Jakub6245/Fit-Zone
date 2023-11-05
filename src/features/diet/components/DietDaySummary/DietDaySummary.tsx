@@ -1,15 +1,23 @@
 import { calculateSum } from "@/features/dietDuringDay/helpers/sumDIetDuringDay";
-import { DietDayProductObjectT } from "@/features/product/types/productObject";
+import { DietDayProductObjectT } from "../../types/dietObject";
 import styles from "./styles.module.scss";
+
+const calcNutritionValues = (dietDay: DietDayProductObjectT) => {
+  return {
+    calories: calculateSum(dietDay.dietDay, "calories"),
+    protein: calculateSum(dietDay.dietDay, "protein"),
+    fats: calculateSum(dietDay.dietDay, "fats"),
+    carbohydrates: calculateSum(dietDay.dietDay, "carbohydrates"),
+  };
+};
+
 export const DietDaySummary = ({
   dietDay,
 }: {
   dietDay: DietDayProductObjectT;
 }) => {
-  const calories = calculateSum(dietDay.dietDay, "calories");
-  const protein = calculateSum(dietDay.dietDay, "protein");
-  const fats = calculateSum(dietDay.dietDay, "fats");
-  const carbohydrates = calculateSum(dietDay.dietDay, "carbohydrates");
+  const { calories, protein, fats, carbohydrates } =
+    calcNutritionValues(dietDay);
 
   return (
     <div className={styles.diet__day__summary__container}>

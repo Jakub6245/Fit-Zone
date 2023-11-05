@@ -1,12 +1,13 @@
+@import "../../../../shared/styles/variables.module.scss";
 .notification {
   &__container {
-    padding: 2rem;
-    font-weight: bold;
-    font-size: 1.6rem;
-    color: white;
+    padding: $small-padding;
+    font-weight: $big-weight;
+    font-size: $small-font;
+    color: $white-color;
 
     &:not(:last-child) {
-      border-bottom: 1px solid white;
+      border-bottom: $border-white;
     }
   }
 
@@ -15,22 +16,22 @@
   }
 
   &__button {
-    font-weight: bold;
-    font-size: 1.6rem;
+    font-weight: $big-weight;
+    font-size: $small-font;
     padding: 0.5rem 1rem;
     border-radius: 10px;
-    transition: 0.5s;
+    transition: $normal-animation;
     &:hover {
-      opacity: 0.5;
+      opacity: $animation-opacity;
     }
 
     &__accept {
-      background-color: lightgreen;
+      background-color: $lightgreen-color;
       margin-right: 1rem;
     }
 
     &__decline {
-      background-color: red;
+      background-color: $red-color;
     }
   }
 }

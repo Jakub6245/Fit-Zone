@@ -17,10 +17,10 @@ export const addProductToListToDB = async (newProduct: ProductT) => {
 
 export const updateProductList = async (
   userId: string,
-  clientList: ProductObjectT
+  productList: ProductObjectT
 ) => {
   await updateDoc(doc(dbProductsCollection, userId), {
-    ...clientList,
+    ...productList,
   });
 };
 

@@ -9,7 +9,6 @@ export const ChatMessage = ({ message }: { message: MessageType }) => {
       ? styles.chat__message__send
       : styles.chat__message__achieved;
 
-  console.log(containerClass);
   return (
     <div className={styles.chat__message__container + " " + containerClass}>
       {message.content}

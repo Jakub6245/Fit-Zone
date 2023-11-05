@@ -1,12 +1,14 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .trainer__modal {
   &__container {
     overflow: hidden;
   }
 
   &__name {
-    font-size: 2.4rem;
-    font-weight: bold;
-    color: #074b07;
+    font-size: $small-heading;
+    font-weight: $big-weight;
+    color: $darkgreen-color;
   }
 
   &__image {
@@ -15,29 +17,29 @@
 
   &__content {
     overflow: hidden;
-    font-weight: bold;
-    font-size: 1.6rem;
+    font-weight: $big-weight;
+    font-size: $small-font;
   }
 
   &__button {
-    font-weight: bold;
-    font-size: 1.8rem;
-    padding: 1rem 2rem;
-    border-radius: 20px;
-    transition: 0.2s;
+    font-weight: $big-weight;
+    font-size: $medium-font;
+    padding: $small-padding;
+    border-radius: $small-radius;
+    transition: $fast-animation;
 
     &:hover {
-      opacity: 0.5;
+      opacity: $animation-opacity;
     }
 
     &__add {
-      color: white;
-      background-color: #074b07;
+      color: $white-color;
+      background-color: $darkgreen-color;
     }
 
     &__close {
-      color: #074b07;
-      background-color: lightgray;
+      color: $darkgreen-color;
+      background-color: $lightgray-color;
       margin-right: 1rem;
     }
   }

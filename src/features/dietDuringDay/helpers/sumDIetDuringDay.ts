@@ -1,4 +1,4 @@
-import { DietDayProductT } from "@/features/product/types/productObject";
+import { DietDayProductT } from "@/features/diet/types/dietObject";
 
 export const calculateSum = <T>(
   array: DietDayProductT[],

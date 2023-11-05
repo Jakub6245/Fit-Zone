@@ -1,9 +1,7 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { storage } from "@/config/firebaseConfig";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { useUser } from "@/store/store";
-import { updateUser } from "@/services/firebaseUserMethods";
-import { useUpdateUserDataMutation } from "@/services/users";
+import { useUpdateUserDataMutation } from "@/shared/services/users";
 import Image from "next/image";
 import defaultImage from "../../../../../images.png";
 import { UserObjectType } from "@/shared/types/UserType";
@@ -14,16 +12,12 @@ export const AddImageInput = ({ user }: { user: UserObjectType }) => {
   const [isFileInputShown, setIsFileInputShown] = useState(false);
   const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
-  // const [profileImage, setProfileImage] = useState(user.imageUrl);
-
   const uploadImage = () => {
     if (uploadedImage === null) return;
-    // console.log(profileImage);
-    if (!user.imageUrl) return;
+
     const imageRef = ref(storage, `images/${user.imageId}`);
     uploadBytes(imageRef, uploadedImage).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
-        // setProfileImage(url);
         updateUser({ userId: user.id, userData: { ...user, imageUrl: url } });
       });
     });
@@ -41,13 +35,14 @@ export const AddImageInput = ({ user }: { user: UserObjectType }) => {
         <Image
           className={styles.image__input__image}
           src={user.imageUrl ? user.imageUrl : defaultImage}
-          width={550}
-          height={550}
+          width={500}
+          height={500}
           alt="profile image"
         />
       </div>
       {isFileInputShown && <input type="file" onChange={handleChange} />}
       <button
+        className={styles.image__input__button}
         onClick={() => {
           uploadImage();
           setIsFileInputShown(!isFileInputShown);

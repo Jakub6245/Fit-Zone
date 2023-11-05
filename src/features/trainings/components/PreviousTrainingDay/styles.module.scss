@@ -1,0 +1,16 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.previous__training__day {
+  &__button {
+    font-weight: $big-weight;
+    font-size: $medium-font;
+    color: $white-color;
+    background-color: $darkgreen-color;
+    padding: $small-padding;
+    transition: $fast-animation;
+
+    &:hover {
+      opacity: $animation-opacity;
+    }
+  }
+}

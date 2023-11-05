@@ -1,14 +1,13 @@
-import Notification from "../notification/Notification";
+import Notification from "../notification/NotificationColaboration";
 
 import { useFetchUsersNotificationsQuery } from "@/features/notifications/services/notifications";
 import { NotificationType } from "@/shared/types/NotificationType";
 import { useUser } from "@/store/store";
 import styles from "./styles.module.scss";
 
-const NotificationsList = () => {
+export const NotificationsList = () => {
   const user = useUser();
 
-  console.log(user);
   const { data } = useFetchUsersNotificationsQuery(user.notificationListId);
 
   if (!data) return;
@@ -16,7 +15,7 @@ const NotificationsList = () => {
   return (
     <div className={styles.notification__list__container}>
       {data.notifications.map((el: NotificationType, i: number) => {
-        return <Notification key={i} data={el} />;
+        return <Notification key={i} notificationData={el} />;
       })}
       {data.notifications.length === 0 && (
         <p className={styles.notification__list__message}>
@@ -26,5 +25,3 @@ const NotificationsList = () => {
     </div>
   );
 };
-
-export default NotificationsList;

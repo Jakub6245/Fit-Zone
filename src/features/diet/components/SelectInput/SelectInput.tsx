@@ -1,5 +1,4 @@
-import { Select } from "@chakra-ui/react";
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent } from "react";
 import { SelectOptionT } from "../../types/selectOptions";
 import styles from "./styles.module.scss";
 
@@ -16,6 +15,7 @@ export const SelectInput = ({
   return (
     <select
       required
+      value=""
       onChange={handleSelectInputsChange}
       className={styles.select__input}
     >

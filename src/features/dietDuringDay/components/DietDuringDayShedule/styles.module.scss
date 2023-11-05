@@ -1,16 +1,20 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .diet__during__day {
   &__container {
     max-height: 60vh;
     overflow-y: auto;
     width: 80%;
     margin: 0 auto;
-    margin-bottom: 2rem;
+    margin-bottom: $margin-small;
   }
 
-  &__text {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #074b07;
+  &__header {
+    font-size: $small-heading;
+    font-weight: $big-weight;
+    color: $darkgreen-color;
+    padding: $margin-medium;
     text-align: center;
+    font-size: $big-heading;
   }
 }

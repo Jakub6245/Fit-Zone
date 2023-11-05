@@ -1,28 +1,38 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .profile {
   width: 30%;
   margin: 5rem auto;
-  font-weight: bold;
-  font-size: 2rem;
-  background-color: #074b07;
-  color: white;
+  font-weight: $big-font;
+  font-size: $margin-small;
+  background-color: $darkgreen-color;
+  color: $white-color;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
+  padding: $big-padding;
   border-radius: 5rem;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.7);
+  box-shadow: $box-shadow;
 
   &__container__info {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    gap: 2rem;
+
+    gap: $margin-small;
   }
 
   &__name {
-    font-size: 3rem;
+    font-size: $big-heading;
+  }
+
+  &__button {
+    transition: $fast-animation;
+
+    &:hover {
+      opacity: $animation-opacity;
+    }
   }
 }

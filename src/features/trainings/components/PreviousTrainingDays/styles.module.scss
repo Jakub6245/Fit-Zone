@@ -1,0 +1,24 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.previous__training__days {
+  &__container {
+    display: flex;
+    justify-content: center;
+    gap: $margin-medium;
+    align-items: center;
+    margin-bottom: $margin-small;
+  }
+
+  &__button {
+    padding: $small-padding;
+    color: $white-color;
+    font-weight: $big-weight;
+    font-size: $medium-font;
+    background-color: $darkgreen-color;
+    transition: $fast-animation;
+
+    &:hover {
+      opacity: $animation-opacity;
+    }
+  }
+}

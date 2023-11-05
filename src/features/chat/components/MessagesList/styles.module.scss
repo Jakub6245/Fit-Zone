@@ -1,9 +1,11 @@
+@import "../../../../shared/styles/variables.module.scss";
+
 .messages__list {
   &__container {
     min-height: 35vh;
     overflow-y: auto;
     display: flex;
     flex-direction: column-reverse;
-    padding: 1rem 2rem;
+    padding: $small-padding;
   }
 }

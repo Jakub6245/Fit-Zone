@@ -1,0 +1,31 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.exercise__data {
+  &__form {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 60%;
+    gap: $margin-small;
+    font-weight: $big-weight;
+    font-size: $margin-small;
+  }
+
+  &__input {
+    width: 10%;
+    color: black;
+  }
+
+  &__button {
+    background-color: $white-color;
+    color: $darkgreen-color;
+    padding: $small-padding;
+    border-radius: $small-radius;
+    font-weight: $big-weight;
+    font-size: $medium-font;
+
+    &:hover {
+      opacity: $animation-opacity;
+    }
+  }
+}

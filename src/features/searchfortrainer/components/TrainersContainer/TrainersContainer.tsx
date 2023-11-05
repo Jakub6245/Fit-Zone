@@ -1,7 +1,7 @@
 import { TrainerCard } from "../TrainerCard/TrainerCard";
 import { filterUsers } from "../../helpers/filterUsers";
 
-import { useFetchUsersDataQuery } from "@/services/users";
+import { useFetchUsersDataQuery } from "@/shared/services/users";
 
 import styles from "./styles.module.scss";
 

@@ -1,7 +1,7 @@
 import { Text } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { validationSchema } from "@/config/validation/phoneNumberValidationSchema";
-import { useUpdateUserDataMutation } from "@/services/users";
+import { useUpdateUserDataMutation } from "@/shared/services/users";
 import { UserObjectType } from "@/shared/types/UserType";
 import { useState } from "react";
 import styles from "./styles.module.scss";
