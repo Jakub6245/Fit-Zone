@@ -1,0 +1,24 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.dashboard__table__element {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: $big-weight;
+  font-size: $medium-font;
+  border-bottom: $border-white;
+  border-left: $border-white;
+  border-right: $border-white;
+  background-color: $lightgreen-color;
+  color: $darkgreen-color;
+
+  &__text {
+    padding: $small-padding;
+    width: 20%;
+    text-align: center;
+
+    &:not(:last-child) {
+      border-right: $border-white;
+    }
+  }
+}

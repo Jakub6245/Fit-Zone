@@ -22,6 +22,7 @@ import {
 } from "@/features/trainings/services/trainingMethods";
 import styles from "./styles.module.scss";
 import { NextRouter, useRouter } from "next/router";
+import { getDate } from "@/features/dietDuringDay/helpers/getYesterdayDate";
 
 const createUserWithEmailAndPasswordPromise = (
   email: string,
@@ -70,6 +71,7 @@ const onSuccess = (
     chatList: [],
     dietObjectId: "",
     dietDayObjectId: "",
+    currentDate: getDate(),
     description: "",
     phoneNumber: "",
     savedDietDaysObjectId: "",

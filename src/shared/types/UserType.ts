@@ -17,6 +17,7 @@ export type UserObjectType = {
   imageUrl: string;
   trainingId: string;
   savedTrainingsId: string;
+  currentDate: string;
 };
 
 export type UserType = "trainer" | "client";

@@ -35,6 +35,7 @@ export const TrainerModal = ({
       userId: data.notificationListId,
       newNotification: notificationObject,
     });
+    onClose();
   };
 
   return (
