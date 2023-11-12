@@ -31,6 +31,14 @@ const Navigation = () => {
         <div>
           <button
             className={styles.navigation__button}
+            onClick={() => router.push("/dashboard")}
+          >
+            Dashboard
+          </button>
+        </div>
+        <div>
+          <button
+            className={styles.navigation__button}
             onClick={toggleNotifications}
           >
             Notifications

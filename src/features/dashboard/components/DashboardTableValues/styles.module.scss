@@ -1,0 +1,18 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.dashboard__table__values {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-weight: $big-weight;
+  font-size: $big-font;
+  background-color: $darkgreen-color;
+  color: $white-color;
+  border-radius: 5px 5px 0 0;
+
+  &__text {
+    padding: $small-padding;
+    width: 20%;
+    text-align: center;
+  }
+}

@@ -1,0 +1,9 @@
+@import "../../../../shared/styles/variables.module.scss";
+
+.monthly__trainings__header {
+  font-weight: $big-font;
+  font-size: $large-heading;
+  color: $white-color;
+  margin-left: $margin-medium;
+  margin-bottom: $margin-medium;
+}

@@ -51,7 +51,7 @@ export const PreviousDietDays = () => {
   const paginationStartingIndex = getPaginationStartingIndex(data, currentPage);
 
   const paginationEndingIndex = getPaginationEndingIndex(data, currentPage);
-
+  console.log(data.savedDietDays);
   return (
     <div className={styles.previous__days__container}>
       <button

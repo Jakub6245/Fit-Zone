@@ -1,11 +1,8 @@
 import { useDietDayDate, useUser } from "@/store/store";
-import {
-  useFetchUsersDietDayQuery,
-  useSaveDietDayMutation,
-} from "../../services/dietDay";
+import { useSaveDietDayMutation } from "../../services/dietDay";
 import { DietDayProdcut } from "../DietDuringDayProduct/DietDuringDayProduct";
 import styles from "./styles.module.scss";
-import shedule from "node-schedule";
+import schedule from "node-schedule";
 import { getDate } from "../../helpers/getYesterdayDate";
 import { DietDayProductObjectT } from "@/features/diet/types/dietObject";
 import { DietDaySummary } from "@/features/diet/components/DietDaySummary/DietDaySummary";
@@ -21,15 +18,15 @@ export const DietDayShedule = ({
   const dietDayDate = useDietDayDate();
   const [saveDietDays] = useSaveDietDayMutation();
 
-  // shedule.scheduleJob("0 0 0 * * *", () => {
-  //   if (dietDay.dietDay.length > 0) {
-  //     saveDietDays({
-  //       savedDietDaysId: user.savedDietDaysObjectId,
-  //       dietDay: { dietDay: dietDay.dietDay, date: getYesterdaysDate() },
-  //       dietDuringDayId: user.dietDayObjectId,
-  //     });
-  //   }
-  // });
+  schedule.scheduleJob("0 0 * * *", () => {
+    if (dietDay.dietDay.length > 0) {
+      saveDietDays({
+        savedDietDaysId: user.savedDietDaysObjectId,
+        dietDay: { dietDay: dietDay.dietDay, date: getDate() },
+        dietDuringDayId: user.dietDayObjectId,
+      });
+    }
+  });
 
   return (
     <div>

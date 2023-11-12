@@ -1,4 +1,4 @@
-import { TrainersContainer } from "@/features/searchfortrainer/components/TrainersContainer/TrainersContainer";
+import { TrainersContainer } from "@/features/searchfortrainer";
 import Navigation from "@/shared/components/navigation/Navigation";
 
 const SearchForTrainer = () => {

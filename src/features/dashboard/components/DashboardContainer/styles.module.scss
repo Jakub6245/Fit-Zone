@@ -1,0 +1,12 @@
+@import "../../../../shared/styles/variables.module.scss";
+.dashboard__container {
+  width: 80vw;
+  margin: 0 auto;
+  &__header {
+    font-weight: $big-font;
+    font-size: $large-heading;
+    color: $darkgreen-color;
+    margin-left: $margin-medium;
+    text-align: center;
+  }
+}
